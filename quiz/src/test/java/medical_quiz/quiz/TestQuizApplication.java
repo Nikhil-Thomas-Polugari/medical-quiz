@@ -1,6 +1,7 @@
 package medical_quiz.quiz;
 
 import org.springframework.boot.SpringApplication;
+import medical_quiz.quiz.QuizApplication;
 
 public class TestQuizApplication {
 
