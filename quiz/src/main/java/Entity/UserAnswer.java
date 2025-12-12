@@ -1,0 +1,36 @@
+package Entity;
+
+import jakarta.persistence.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "user_answers", 
+       uniqueConstraints = @UniqueConstraint(columnNames = {"user_id", "question_id"}))
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class UserAnswer {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long answerId;
+    
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+    
+    @ManyToOne
+    @JoinColumn(name = "question_id", nullable = false)
+    private Question question;
+    
+    @Column(nullable = false)
+    private String userAnswer;
+    
+    @Column(nullable = false)
+    private Boolean isCorrect;
+    
+    @Column(nullable = false)
+    private LocalDateTime answeredAt = LocalDateTime.now();
+}
