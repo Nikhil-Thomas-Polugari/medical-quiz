@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center mt-5">
+    <div class="col-md-8 text-center text-white">
+        <h1 class="display-3 fw-bold mb-4">🏥 Medical Quiz</h1>
+        <p class="lead mb-5">Test your medical knowledge with our comprehensive quiz platform</p>
+        <div class="d-grid gap-3 d-md-flex justify-content-md-center">
+            <a href="{{ url_for('register') }}" class="btn btn-light btn-lg px-5">Get Started</a>
+            <a href="{{ url_for('login') }}" class="btn btn-outline-light btn-lg px-5">Login</a>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-5">
+    <div class="col-md-4 text-center text-white">
+        <div class="mb-3">
+            <h2>📚</h2>
+        </div>
+        <h5>Comprehensive Questions</h5>
+        <p>Practice with a wide range of medical topics</p>
+    </div>
+    <div class="col-md-4 text-center text-white">
+        <div class="mb-3">
+            <h2>📊</h2>
+        </div>
+        <h5>Track Progress</h5>
+        <p>Monitor your performance and improvement</p>
+    </div>
+    <div class="col-md-4 text-center text-white">
+        <div class="mb-3">
+            <h2>🎯</h2>
+        </div>
+        <h5>Instant Feedback</h5>
+        <p>Get immediate results and explanations</p>
+    </div>
+</div>
+{% endblock %}

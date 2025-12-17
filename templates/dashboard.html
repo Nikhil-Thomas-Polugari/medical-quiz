@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center mt-4">
+    <div class="col-md-10">
+        <div class="card">
+            <div class="card-body p-5">
+                <h2 class="mb-4">Welcome, {{ username }}! 👋</h2>
+                
+                {% if score %}
+                <div class="row mb-4">
+                    <div class="col-md-3">
+                        <div class="card bg-primary text-white">
+                            <div class="card-body text-center">
+                                <h3>{{ score.correctAnswers }}</h3>
+                                <p class="mb-0">Correct</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-info text-white">
+                            <div class="card-body text-center">
+                                <h3>{{ score.totalAnswered }}</h3>
+                                <p class="mb-0">Answered</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-secondary text-white">
+                            <div class="card-body text-center">
+                                <h3>{{ score.totalQuestions }}</h3>
+                                <p class="mb-0">Total</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card bg-success text-white">
+                            <div class="card-body text-center">
+                                <h3>{{ "%.1f"|format(score.percentage) }}%</h3>
+                                <p class="mb-0">Score</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="progress mb-4" style="height: 30px;">
+                    <div class="progress-bar bg-success" role="progressbar" 
+                         style="width: {{ (score.totalAnswered / score.totalQuestions * 100) }}%">
+                        {{ score.totalAnswered }} / {{ score.totalQuestions }} Questions
+                    </div>
+                </div>
+
+                {% if score.quizCompleted %}
+                    <div class="alert alert-success">
+                        <h5>🎉 Quiz Completed!</h5>
+                        <p>You've answered all questions. Check your results!</p>
+                    </div>
+                    <a href="{{ url_for('results') }}" class="btn btn-success btn-lg">View Full Results</a>
+                {% else %}
+                    <a href="{{ url_for('quiz') }}" class="btn btn-custom btn-lg">Continue Quiz</a>
+                {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
