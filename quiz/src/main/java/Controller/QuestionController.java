@@ -1,7 +1,9 @@
 package Controller;
 
-import dto;
-import service.QuestionService;
+import DTO.QuestionDTO;
+import DTO.AnswerSubmissionDTO;
+import DTO.ScoreDTO;
+import Service.QuestionService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +21,7 @@ public class QuestionController {
     public ResponseEntity<?> getRandomQuestion(Authentication authentication) {
         try {
             String username = authentication.getName();
-            QuestionDTO question = questionService.getRandomUnansweredQuestion(username);
+            QuestionDTO question = (QuestionDTO) questionService.getRandomUnansweredQuestion(username);
             
             if (question == null) {
                 return ResponseEntity.ok().body("Quiz completed! Check your score.");
@@ -36,7 +38,7 @@ public class QuestionController {
                                          Authentication authentication) {
         try {
             String username = authentication.getName();
-            AnswerResponseDTO response = questionService.submitAnswer(username, submission);
+            Object response = questionService.submitAnswer(username, submission);
             return ResponseEntity.ok(response);
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(e.getMessage());

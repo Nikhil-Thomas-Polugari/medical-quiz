@@ -1,12 +1,12 @@
 package Service;
 
-import com.quiz.entity.Question;
-import com.quiz.entity.User;
-import com.quiz.entity.UserAnswer;
-import com.quiz.dto.*;
-import com.quiz.repository.QuestionRepository;
-import com.quiz.repository.UserAnswerRepository;
-import com.quiz.repository.UserRepository;
+import Entity.Question;
+import Entity.User;
+import Entity.UserAnswer;
+import DTO.*;
+import Repository.QuestionRepository;
+import Repository.UserAnswerRepository;
+import Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

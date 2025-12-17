@@ -1,12 +1,15 @@
 package Service;
 
-import com.quiz.entity.User;
-import com.quiz.dto.*;
-import com.quiz.repository.UserRepository;
-import com.quiz.security.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import DTO.AuthResponse;
+import DTO.LoginRequest;
+import DTO.RegisterRequest;
+import Entity.User;
+import Repository.UserRepository;
+import Util.JwtUtil;
 
 @Service
 public class AuthService {
