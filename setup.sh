@@ -4,8 +4,8 @@
 echo "Setting up Medical Quiz Flask Frontend..."
 
 # Create project structure
-mkdir -p medical-quiz-frontend/templates
-cd medical-quiz-frontend
+#mkdir -p medical-quiz-frontend/templates
+#cd medical-quiz-frontend
 
 # Create requirements.txt
 cat > requirements.txt << 'EOF'
