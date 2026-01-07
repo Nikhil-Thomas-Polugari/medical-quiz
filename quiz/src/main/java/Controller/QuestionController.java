@@ -1,14 +1,19 @@
 package Controller;
 
-import DTO.QuestionDTO;
-import DTO.AnswerSubmissionDTO;
-import DTO.ScoreDTO;
-import Service.QuestionService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import DTO.AnswerResponseDTO;
+import DTO.AnswerSubmissionDTO;
+import DTO.QuestionDTO;
+import Service.QuestionService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/questions")
@@ -18,15 +23,9 @@ public class QuestionController {
     private QuestionService questionService;
     
     @GetMapping("/random")
-    public ResponseEntity<?> getRandomQuestion(Authentication authentication) {
+    public ResponseEntity<?> getRandomQuestion() {
         try {
-            String username = authentication.getName();
-            QuestionDTO question = (QuestionDTO) questionService.getRandomUnansweredQuestion(username);
-            
-            if (question == null) {
-                return ResponseEntity.ok().body("Quiz completed! Check your score.");
-            }
-            
+            QuestionDTO question = questionService.getRandomQuestion();
             return ResponseEntity.ok(question);
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -34,23 +33,20 @@ public class QuestionController {
     }
     
     @PostMapping("/answer")
-    public ResponseEntity<?> submitAnswer(@Valid @RequestBody AnswerSubmissionDTO submission,
-                                         Authentication authentication) {
+    public ResponseEntity<?> submitAnswer(@Valid @RequestBody AnswerSubmissionDTO submission) {
         try {
-            String username = authentication.getName();
-            Object response = questionService.submitAnswer(username, submission);
+            AnswerResponseDTO response = questionService.checkAnswer(submission);
             return ResponseEntity.ok(response);
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
     
-    @GetMapping("/score")
-    public ResponseEntity<?> getScore(Authentication authentication) {
+    @GetMapping("/count")
+    public ResponseEntity<?> getTotalQuestions() {
         try {
-            String username = authentication.getName();
-            ScoreDTO score = questionService.getUserScore(username);
-            return ResponseEntity.ok(score);
+            long count = questionService.getTotalQuestionCount();
+            return ResponseEntity.ok(count);
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

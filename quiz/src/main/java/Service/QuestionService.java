@@ -1,89 +1,48 @@
 package Service;
 
-import Entity.Question;
-import Entity.User;
-import Entity.UserAnswer;
-import DTO.*;
-import Repository.QuestionRepository;
-import Repository.UserAnswerRepository;
-import Repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Random;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import DTO.AnswerResponseDTO;
+import DTO.AnswerSubmissionDTO;
+import DTO.QuestionDTO;
+import Entity.Question;
+import Repository.QuestionRepository;
 
 @Service
 public class QuestionService {
     @Autowired
     private QuestionRepository questionRepository;
     
-    @Autowired
-    private UserAnswerRepository userAnswerRepository;
-    
-    @Autowired
-    private UserRepository userRepository;
-    
     private final Random random = new Random();
     
-    public QuestionDTO getRandomUnansweredQuestion(String username) {
-        User user = userRepository.findByUsername(username)
-            .orElseThrow(() -> new RuntimeException("User not found"));
+    public QuestionDTO getRandomQuestion() {
+        List<Question> allQuestions = questionRepository.findAll();
         
-        List<Question> unansweredQuestions = questionRepository
-            .findUnansweredQuestionsByUser(user.getUserId());
-        
-        if (unansweredQuestions.isEmpty()) {
-            return null; // Quiz completed
+        if (allQuestions.isEmpty()) {
+            throw new RuntimeException("No questions available");
         }
         
-        Question question = unansweredQuestions.get(random.nextInt(unansweredQuestions.size()));
+        Question question = allQuestions.get(random.nextInt(allQuestions.size()));
         return convertToDTO(question);
     }
     
-    @Transactional
-    public AnswerResponseDTO submitAnswer(String username, AnswerSubmissionDTO submission) {
-        User user = userRepository.findByUsername(username)
-            .orElseThrow(() -> new RuntimeException("User not found"));
-        
+    public AnswerResponseDTO checkAnswer(AnswerSubmissionDTO submission) {
         Question question = questionRepository.findById(submission.getQuestionId())
             .orElseThrow(() -> new RuntimeException("Question not found"));
         
-        // Check if already answered
-        if (userAnswerRepository.existsByUserUserIdAndQuestionQuestionId(
-                user.getUserId(), question.getQuestionId())) {
-            throw new RuntimeException("Question already answered");
-        }
-        
-        boolean isCorrect = question.getCorrectAnswer().equalsIgnoreCase(submission.getAnswer().trim());
-        
-        UserAnswer userAnswer = new UserAnswer();
-        userAnswer.setUser(user);
-        userAnswer.setQuestion(question);
-        userAnswer.setUserAnswer(submission.getAnswer());
-        userAnswer.setIsCorrect(isCorrect);
-        
-        userAnswerRepository.save(userAnswer);
+        boolean isCorrect = question.getCorrectAnswer()
+            .equalsIgnoreCase(submission.getAnswer().trim());
         
         String message = isCorrect ? "Correct!" : "Incorrect!";
         return new AnswerResponseDTO(isCorrect, question.getCorrectAnswer(), message);
     }
     
-    public ScoreDTO getUserScore(String username) {
-        User user = userRepository.findByUsername(username)
-            .orElseThrow(() -> new RuntimeException("User not found"));
-        
-        long correctAnswers = userAnswerRepository.countCorrectAnswersByUser(user.getUserId());
-        long totalAnswered = userAnswerRepository.countTotalAnswersByUser(user.getUserId());
-        long totalQuestions = questionRepository.getTotalQuestionCount();
-        
-        double percentage = totalAnswered > 0 ? 
-            (correctAnswers * 100.0) / totalAnswered : 0.0;
-        
-        boolean quizCompleted = totalAnswered >= totalQuestions;
-        
-        return new ScoreDTO(correctAnswers, totalAnswered, totalQuestions, 
-                           percentage, quizCompleted);
+    public long getTotalQuestionCount() {
+        return questionRepository.count();
     }
     
     private QuestionDTO convertToDTO(Question question) {

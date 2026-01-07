@@ -1,38 +1,353 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Quiz</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .card {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            border: none;
+            border-radius: 15px;
+        }
+        .btn-custom {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: white;
+        }
+        .btn-custom:hover {
+            opacity: 0.9;
+            color: white;
+        }
+        .navbar-custom {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+        }
+        .option-btn {
+            transition: all 0.3s;
+        }
+        .option-btn:hover {
+            transform: translateX(10px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light navbar-custom mb-4">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="/">🏥 Medical Quiz</a>
+            <div class="ms-auto">
+                <button class="btn btn-outline-danger" onclick="resetQuiz()">Reset Quiz</button>
+            </div>
+        </div>
+    </nav>
 
-{% block content %}
-<div class="row justify-content-center mt-5">
-    <div class="col-md-8 text-center text-white">
-        <h1 class="display-3 fw-bold mb-4">🏥 Medical Quiz</h1>
-        <p class="lead mb-5">Test your medical knowledge with our comprehensive quiz platform</p>
-        <div class="d-grid gap-3 d-md-flex justify-content-md-center">
-            <a href="{{ url_for('register') }}" class="btn btn-light btn-lg px-5">Get Started</a>
-            <a href="{{ url_for('login') }}" class="btn btn-outline-light btn-lg px-5">Login</a>
+    <!-- Main Content -->
+    <div class="container" id="app">
+        <!-- Landing Page -->
+        <div id="landing-page" class="row justify-content-center mt-5">
+            <div class="col-md-8 text-center text-white">
+                <h1 class="display-3 fw-bold mb-4">🏥 Medical Quiz</h1>
+                <p class="lead mb-5">Test your medical knowledge with our comprehensive quiz platform</p>
+                <button class="btn btn-light btn-lg px-5" onclick="showDashboard()">Start Quiz</button>
+            </div>
+            
+            <div class="row mt-5">
+                <div class="col-md-4 text-center text-white">
+                    <div class="mb-3"><h2>📚</h2></div>
+                    <h5>Comprehensive Questions</h5>
+                    <p>Practice with a wide range of medical topics</p>
+                </div>
+                <div class="col-md-4 text-center text-white">
+                    <div class="mb-3"><h2>📊</h2></div>
+                    <h5>Track Progress</h5>
+                    <p>Monitor your performance and improvement</p>
+                </div>
+                <div class="col-md-4 text-center text-white">
+                    <div class="mb-3"><h2>🎯</h2></div>
+                    <h5>Instant Feedback</h5>
+                    <p>Get immediate results and explanations</p>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
 
-<div class="row mt-5">
-    <div class="col-md-4 text-center text-white">
-        <div class="mb-3">
-            <h2>📚</h2>
+        <!-- Dashboard -->
+        <div id="dashboard" class="row justify-content-center mt-4" style="display: none;">
+            <div class="col-md-10">
+                <div class="card">
+                    <div class="card-body p-5">
+                        <h2 class="mb-4">Your Progress 👋</h2>
+                        
+                        <div class="row mb-4">
+                            <div class="col-md-3">
+                                <div class="card bg-primary text-white">
+                                    <div class="card-body text-center">
+                                        <h3 id="correct-count">0</h3>
+                                        <p class="mb-0">Correct</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card bg-info text-white">
+                                    <div class="card-body text-center">
+                                        <h3 id="answered-count">0</h3>
+                                        <p class="mb-0">Answered</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card bg-secondary text-white">
+                                    <div class="card-body text-center">
+                                        <h3 id="total-count">0</h3>
+                                        <p class="mb-0">Total</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card bg-success text-white">
+                                    <div class="card-body text-center">
+                                        <h3 id="percentage">0%</h3>
+                                        <p class="mb-0">Score</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="progress mb-4" style="height: 30px;">
+                            <div id="progress-bar" class="progress-bar bg-success" role="progressbar" style="width: 0%">
+                                0 / 0 Questions
+                            </div>
+                        </div>
+
+                        <div id="completion-alert" class="alert alert-success" style="display: none;">
+                            <h5>🎉 Quiz Completed!</h5>
+                            <p>You've answered all questions. Check your results!</p>
+                        </div>
+
+                        <button class="btn btn-custom btn-lg" onclick="startQuiz()">Continue Quiz</button>
+                    </div>
+                </div>
+            </div>
         </div>
-        <h5>Comprehensive Questions</h5>
-        <p>Practice with a wide range of medical topics</p>
-    </div>
-    <div class="col-md-4 text-center text-white">
-        <div class="mb-3">
-            <h2>📊</h2>
+
+        <!-- Quiz Page -->
+        <div id="quiz-page" class="row justify-content-center mt-4" style="display: none;">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body p-5">
+                        <h4 class="mb-4">Question</h4>
+                        <p class="lead" id="question-text"></p>
+                        
+                        <div class="d-grid gap-3" id="options-container"></div>
+                        
+                        <div class="mt-4">
+                            <span class="badge bg-secondary" id="difficulty-badge"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <h5>Track Progress</h5>
-        <p>Monitor your performance and improvement</p>
-    </div>
-    <div class="col-md-4 text-center text-white">
-        <div class="mb-3">
-            <h2>🎯</h2>
+
+        <!-- Result Page -->
+        <div id="result-page" class="row justify-content-center mt-5" style="display: none;">
+            <div class="col-md-6 text-center">
+                <div class="card">
+                    <div class="card-body p-5">
+                        <h1 id="result-icon" class="mb-4"></h1>
+                        <p class="lead" id="result-message"></p>
+                        <p id="correct-answer-text"></p>
+                        
+                        <hr class="my-4">
+                        <button class="btn btn-custom btn-lg me-2" onclick="nextQuestion()">Next Question</button>
+                        <button class="btn btn-outline-secondary btn-lg" onclick="showDashboard()">Dashboard</button>
+                    </div>
+                </div>
+            </div>
         </div>
-        <h5>Instant Feedback</h5>
-        <p>Get immediate results and explanations</p>
     </div>
-</div>
-{% endblock %}
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // API Base URL is passed from Flask
+        const API_BASE = '{{ api_url }}/questions';
+        
+        let quizState = {
+            answeredQuestions: JSON.parse(localStorage.getItem('answeredQuestions') || '[]'),
+            correctAnswers: parseInt(localStorage.getItem('correctAnswers') || '0'),
+            totalQuestions: 0,
+            currentQuestion: null
+        };
+
+        // Show different pages
+        function showPage(pageId) {
+            ['landing-page', 'dashboard', 'quiz-page', 'result-page'].forEach(id => {
+                document.getElementById(id).style.display = 'none';
+            });
+            document.getElementById(pageId).style.display = 'block';
+        }
+
+        async function showDashboard() {
+            await loadTotalQuestions();
+            updateDashboard();
+            showPage('dashboard');
+        }
+
+        function updateDashboard() {
+            const answered = quizState.answeredQuestions.length;
+            const correct = quizState.correctAnswers;
+            const total = quizState.totalQuestions;
+            const percentage = answered > 0 ? ((correct / answered) * 100).toFixed(1) : 0;
+            const progressPercent = total > 0 ? ((answered / total) * 100).toFixed(1) : 0;
+
+            document.getElementById('correct-count').textContent = correct;
+            document.getElementById('answered-count').textContent = answered;
+            document.getElementById('total-count').textContent = total;
+            document.getElementById('percentage').textContent = percentage + '%';
+            
+            const progressBar = document.getElementById('progress-bar');
+            progressBar.style.width = progressPercent + '%';
+            progressBar.textContent = `${answered} / ${total} Questions`;
+
+            if (answered >= total && total > 0) {
+                document.getElementById('completion-alert').style.display = 'block';
+            }
+        }
+
+        async function loadTotalQuestions() {
+            try {
+                const response = await fetch(`${API_BASE}/count`);
+                quizState.totalQuestions = await response.json();
+            } catch (error) {
+                console.error('Error loading total questions:', error);
+                alert('Cannot connect to server. Please make sure the backend is running.');
+            }
+        }
+
+        async function startQuiz() {
+            if (quizState.answeredQuestions.length >= quizState.totalQuestions) {
+                alert('You have completed all questions!');
+                return;
+            }
+            await loadQuestion();
+        }
+
+        async function loadQuestion() {
+            try {
+                // Keep fetching until we get an unanswered question
+                let question;
+                let attempts = 0;
+                do {
+                    const response = await fetch(`${API_BASE}/random`);
+                    question = await response.json();
+                    attempts++;
+                } while (quizState.answeredQuestions.includes(question.questionId) && attempts < 20);
+
+                if (quizState.answeredQuestions.includes(question.questionId)) {
+                    alert('All questions answered!');
+                    showDashboard();
+                    return;
+                }
+
+                quizState.currentQuestion = question;
+                displayQuestion(question);
+                showPage('quiz-page');
+            } catch (error) {
+                console.error('Error loading question:', error);
+                alert('Error loading question. Please try again.');
+            }
+        }
+
+        function displayQuestion(question) {
+            document.getElementById('question-text').textContent = question.questionText;
+            document.getElementById('difficulty-badge').textContent = 
+                'Difficulty: ' + (question.difficulty || 'Medium');
+
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+
+            ['A', 'B', 'C', 'D'].forEach(option => {
+                const btn = document.createElement('button');
+                btn.className = 'btn btn-outline-primary btn-lg text-start option-btn';
+                btn.innerHTML = `<strong>${option}.</strong> ${question['option' + option]}`;
+                btn.onclick = () => submitAnswer(option);
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        async function submitAnswer(answer) {
+            try {
+                const response = await fetch(`${API_BASE}/answer`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        questionId: quizState.currentQuestion.questionId,
+                        answer: answer
+                    })
+                });
+
+                const result = await response.json();
+                
+                // Update state
+                quizState.answeredQuestions.push(quizState.currentQuestion.questionId);
+                if (result.isCorrect || result.correct) {
+                    quizState.correctAnswers++;
+                }
+
+                // Save to localStorage
+                localStorage.setItem('answeredQuestions', JSON.stringify(quizState.answeredQuestions));
+                localStorage.setItem('correctAnswers', quizState.correctAnswers);
+
+                // Show result
+                showResult(result);
+            } catch (error) {
+                console.error('Error submitting answer:', error);
+                alert('Error submitting answer. Please try again.');
+            }
+        }
+
+        function showResult(result) {
+            const isCorrect = result.isCorrect || result.correct;
+            
+            if (isCorrect) {
+                document.getElementById('result-icon').innerHTML = '✓ <span class="text-success">Correct!</span>';
+                document.getElementById('result-message').textContent = result.message || 'Well done!';
+                document.getElementById('correct-answer-text').textContent = '';
+            } else {
+                document.getElementById('result-icon').innerHTML = '✗ <span class="text-danger">Incorrect</span>';
+                document.getElementById('result-message').textContent = result.message || 'Try again!';
+                document.getElementById('correct-answer-text').innerHTML = 
+                    `The correct answer was: <strong>${result.correctAnswer}</strong>`;
+            }
+
+            showPage('result-page');
+        }
+
+        function nextQuestion() {
+            if (quizState.answeredQuestions.length >= quizState.totalQuestions) {
+                showDashboard();
+            } else {
+                loadQuestion();
+            }
+        }
+
+        function resetQuiz() {
+            if (confirm('Are you sure you want to reset your progress?')) {
+                localStorage.clear();
+                quizState.answeredQuestions = [];
+                quizState.correctAnswers = 0;
+                location.reload();
+            }
+        }
+
+        // Initialize
+        window.onload = async () => {
+            await loadTotalQuestions();
+        };
+    </script>
+</body>
+</html>
