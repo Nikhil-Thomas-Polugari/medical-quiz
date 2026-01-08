@@ -1,0 +1,272 @@
+Disease,Primary Symptom 1,Primary Symptom 2,Primary Symptom 3,Primary Symptom 4,Additional Symptom 1,Additional Symptom 2,Additional Symptom 3,Additional Symptom 4,Category
+Candidiasis,White patches in mouth,Skin rash and itching,Vaginal discharge,,,,,,Infectious
+Carpal Tunnel Syndrome,Numbness in hand/fingers,Tingling in fingers,Hand weakness,Wrist pain,,,,,Musculoskeletal
+Cataracts,Cloudy vision,Blurry vision,Fading colors,Glare around lights,,,,,Ophthalmological
+Celiac Disease,Diarrhea,Abdominal pain,Bloating,Unintended weight loss,,,,,Autoimmune
+Cellulitis,Red skin,Swollen skin,Warm skin,Tender skin,,,,,Infectious
+Cerebral Palsy,Impaired movement,Abnormal reflexes,Floppy limbs,Involuntary motions,,,,,Neurological
+Cervical Cancer,Abnormal vaginal bleeding,Pelvic pain,Pain during intercourse,,,,,,Oncological
+Chickenpox,Itchy blister-like rash,Fever,Tiredness,,,,,,Infectious
+Chikungunya,Sudden high fever,Severe joint pain,Headache,Rash,,,,,Infectious
+Chlamydia,Often asymptomatic,Painful urination,Abnormal discharge,Lower abdominal pain,,,,,Infectious
+Cholangitis,Fever,Abdominal pain,Jaundice,,,,,,Gastrointestinal
+Cholecystitis,Severe upper right abdominal pain,Fever,Nausea,Bloating,,,,,Gastrointestinal
+Cholera,Severe watery diarrhea,Vomiting,Dehydration,Leg cramps,,,,,Infectious
+Chronic Fatigue Syndrome,Severe fatigue,Post-exertional malaise,Cognitive difficulties,Pain,,,,,Neurological
+Chronic Kidney Disease,Often no early symptoms,Fatigue,Swelling in legs,Changes in urination,,,,,Urological
+COPD,Shortness of breath,Chronic cough,Wheezing,Excessive mucus,,,,,Respiratory
+Cirrhosis,Fatigue,Easy bruising,Jaundice,Fluid retention,,,,,Gastrointestinal
+Cleft Lip and Palate,Physical split in upper lip,Physical split in roof of mouth,,,,,,,Congenital
+Cluster Headache,Excruciating eye pain,Eye watering,Nasal congestion,,,,,,Neurological
+Clostridium difficile Infection,Watery diarrhea,Abdominal cramping,Fever,Nausea,,,,,Infectious
+Colitis,Diarrhea,Abdominal pain,Rectal bleeding,Urgent need to defecate,,,,,Gastrointestinal
+Colorectal Cancer,Change in bowel habits,Blood in stool,Abdominal discomfort,,,,,,Oncological
+Common Cold,Runny nose,Stuffy nose,Sore throat,Cough,Sneezing,,,, Infectious
+Compartment Syndrome,Severe pain,Muscle tightness,Numbness,,,,,,Musculoskeletal
+Concussion,Headache,Confusion,Memory loss,Dizziness,,,,,Neurological
+Congenital Heart Disease,Abnormal heart rhythm,Blue-tinged skin,Shortness of breath,,,,,,Cardiovascular
+Congestive Heart Failure,Shortness of breath,Fatigue,Swelling in legs,Swelling in feet,,,,,Cardiovascular
+Conjunctivitis,Redness in eye,Itchiness,Gritty feeling,Discharge,,,,,Ophthalmological
+Constipation,Fewer than 3 bowel movements weekly,Hard stools,Lumpy stools,Straining,,,,,Gastrointestinal
+Contact Dermatitis,Red rash,Intense itching,Dry skin,Blisters,,,,,Dermatological
+Coronary Artery Disease,Chest pain,Shortness of breath,,,,,,,Cardiovascular
+Costochondritis,Sharp chest pain,Aching chest pain,Worse with deep breaths,Worse with coughing,,,,,Musculoskeletal
+COVID-19,Fever,Cough,Shortness of breath,Loss of taste or smell,Chills,Body aches,Sore throat,,Infectious
+Creutzfeldt-Jakob Disease,Rapidly progressive dementia,Memory loss,Personality changes,Muscle jerks,,,,,Neurological
+Crohn's Disease,Diarrhea,Abdominal cramps,Weight loss,Rectal bleeding,,,,,Gastrointestinal
+Croup,Barking cough,Hoarse voice,Noisy breathing,,,,,,Respiratory
+Cushing's Syndrome,Weight gain in face,Weight gain in upper back,Purple stretch marks,High blood pressure,,,,,Endocrine
+Cyclic Vomiting Syndrome,Recurrent nausea episodes,Recurrent vomiting episodes,,,,,,,Gastrointestinal
+Cyclothymia,Hypomanic periods,Depressive periods,,,,,,,Mental Health
+Cystic Fibrosis,Persistent cough with mucus,Frequent lung infections,Poor growth,Very salty skin,,,,,Genetic
+Cystitis,Frequent urge to urinate,Burning with urination,Cloudy urine,Bloody urine,,,,,Infectious
+Cytomegalovirus Infection,Often asymptomatic,Fever,Sore throat,Fatigue,,,,,Infectious
+Dandruff,Flaky white scalp,Itchy scalp,Greasy scalp skin,,,,,,Dermatological
+Dandy-Walker Syndrome,Slow motor development,Large head size,Poor coordination,Vomiting,,,,,Neurological
+Darier's Disease,Warty skin blemishes,Thick nails,Split nails,Rash in skin folds,,,,,Dermatological
+De Quervain's Tenosynovitis,Thumb-side wrist pain,Swelling near thumb,Difficulty gripping,,,,,,Musculoskeletal
+Deep Vein Thrombosis,Leg swelling,Leg pain,Red skin on leg,Warm skin on leg,,,,,Cardiovascular
+Degenerative Disc Disease,Chronic low back pain,Pain radiating to legs,Numbness,Tingling,,,,,Musculoskeletal
+Dehydration,Thirst,Dark yellow urine,Fatigue,Dizziness,,,,,General
+Delirium,Acute confusion,Attention problems,Fluctuating awareness,Disorientation,,,,,Neurological
+Delusional Disorder,Persistent delusions,,,,,,,, Mental Health
+Dementia,Memory loss,Difficulty problem-solving,Confusion,Personality changes,,,,,Neurological
+Dementia with Lewy Bodies,Cognitive fluctuations,Visual hallucinations,Parkinsonism symptoms,,,,,,Neurological
+Dengue Fever,High fever,Severe headache,Joint pain,Muscle pain,Rash,,,, Infectious
+Dental Caries,Toothache,Tooth sensitivity,Visible holes in teeth,,,,,,Dental
+Depression,Persistent low mood,Loss of interest,Fatigue,Sleep changes,Feelings of worthlessness,Difficulty concentrating,,,Mental Health
+Dermatitis Herpetiformis,Intensely itchy blisters,Rash on elbows,Rash on knees,Burning sensation,,,,,Dermatological
+Dermatomyositis,Progressive muscle weakness,Distinctive skin rash,Trouble swallowing,,,,,,Autoimmune
+Developmental Coordination Disorder,Clumsiness,Poor coordination,Difficulty with motor tasks,,,,,,Neurological
+Diabetes Insipidus,Extreme thirst,Frequent urination,Large amounts of diluted urine,,,,,,Endocrine
+Diabetes Mellitus,Increased thirst,Frequent urination,Unexplained weight loss,Fatigue,,,,,Endocrine
+Diabetic Ketoacidosis,Nausea,Vomiting,Abdominal pain,Fruity-scented breath,Rapid breathing,,,, Endocrine
+Diabetic Nephropathy,Swelling in legs,Swelling in feet,Protein in urine,Worsening blood pressure,,,,,Urological
+Diabetic Neuropathy,Numbness in feet,Numbness in hands,Tingling pain,Burning pain,Muscle weakness,,,, Neurological
+Diabetic Retinopathy,Blurry vision,Floaters,Vision loss,Dark spots,,,,,Ophthalmological
+Diaper Dermatitis,Red rash on buttocks,Irritated skin,Fussiness in infants,,,,,,Dermatological
+DiGeorge Syndrome,Heart defects,Frequent infections,Developmental delay,Distinct facial features,,,,,Genetic
+Diphtheria,Sore throat,Thick gray membrane in throat,Swollen neck glands,Fever,,,,,Infectious
+Disc Herniation,Radiating arm pain,Radiating leg pain,Numbness,Tingling,Muscle weakness,,,, Musculoskeletal
+Discoid Lupus Erythematosus,Scaly disc-shaped sores,Scarring,Sores on scalp,Sores on face,,,,,Autoimmune
+Disseminated Intravascular Coagulation,Widespread bleeding,Bruising,Blood clots,Low blood pressure,,,,,Hematological
+Dissociative Identity Disorder,Two or more distinct identities,Memory gaps,Personal distress,,,,,,Mental Health
+Diverticulitis,Severe abdominal pain,Fever,Nausea,Change in bowel habits,,,,,Gastrointestinal
+Diverticulosis,Often no symptoms,Mild cramps,Bloating,Constipation,,,,,Gastrointestinal
+Down Syndrome,Distinct facial appearance,Intellectual disability,Developmental delays,,,,,,Genetic
+Dracunculiasis,Painful skin blister,Emerging worm from skin,Intense burning pain,,,,,,Infectious
+Dressler Syndrome,Chest pain,Fever,Fatigue,Shortness of breath,,,,,Cardiovascular
+Dry Eye Syndrome,Eye dryness,Gritty sensation,Burning,Stinging,Blurred vision,,,, Ophthalmological
+Duchenne Muscular Dystrophy,Progressive muscle weakness,Frequent falls,Difficulty walking,Large calf muscles,,,,,Genetic
+Dumping Syndrome,Nausea,Cramping,Diarrhea,Dizziness,Rapid heart rate after eating,,,, Gastrointestinal
+Dupuytren's Contracture,Knots of tissue under skin,Fingers pulled toward palm,Limited hand function,,,,,,Musculoskeletal
+Dysentery,Bloody diarrhea,Abdominal cramps,Fever,Nausea,,,,,Infectious
+Dyshidrotic Eczema,Small itchy blisters,Rash on hands,Rash on feet,Peeling skin,,,,,Dermatological
+Dyslexia,Difficulty reading,Trouble spelling,Slow reading speed,Mispronouncing words,,,,,Neurological
+Dysmenorrhea,Painful menstrual cramps,Lower abdominal pain,Back pain,Headache,,,,,Gynecological
+Dyspareunia,Pain during intercourse,Pain after sex,Deep pelvic pain,,,,,,Gynecological
+Dysthymia,Chronic low mood,Low self-esteem,Poor concentration,Hopelessness,,,,,Mental Health
+Dystonia,Involuntary muscle contractions,Repetitive movements,Abnormal postures,,,,,,Neurological
+Haemophilia,Prolonged bleeding,Easy bruising,Joint pain,Joint swelling,,,,,Hematological
+Hand Foot and Mouth Disease,Fever,Sore throat,Rash on hands,Rash on feet,Mouth sores,,,, Infectious
+Hantavirus Pulmonary Syndrome,Fever,Muscle aches,Shortness of breath,Cough,,,,,Infectious
+Hashimoto's Thyroiditis,Fatigue,Weight gain,Cold intolerance,Goiter,,,,,Endocrine
+Hay Fever,Sneezing,Runny nose,Itchy eyes,Nasal congestion,,,,,Respiratory
+Head and Neck Cancer,Sore that does not heal,Difficulty swallowing,Voice changes,,,,,,Oncological
+Heart Attack,Chest pain,Chest pressure,Shortness of breath,Pain in arm,Pain in jaw,,,, Cardiovascular
+Heart Failure,Shortness of breath,Fatigue,Swollen legs,Swollen ankles,,,,,Cardiovascular
+Heat Stroke,High body temperature,Confusion,Flushed skin,No sweating,,,,,General
+Hemochromatosis,Fatigue,Joint pain,Abdominal pain,Weakness,,,,,Hematological
+Hemolytic Uremic Syndrome,Bloody diarrhea,Low urine output,Fatigue,Pale skin,,,,,Hematological
+Hemorrhoids,Anal itching,Pain,Discomfort,Bleeding during bowel movements,,,,,Gastrointestinal
+Hepatitis A,Jaundice,Fatigue,Nausea,Abdominal pain,Dark urine,Loss of appetite,Fever,, Infectious
+Hepatitis B,Jaundice,Fatigue,Dark urine,Abdominal pain,Joint pain,Nausea,Vomiting,Loss of appetite, Infectious
+Hepatitis C,Fatigue,Jaundice,Poor appetite,Joint pain,Fever,Nausea,Abdominal pain,, Infectious
+Hepatocellular Carcinoma,Abdominal pain,Unexplained weight loss,Jaundice,Swelling,,,,,Oncological
+Herniated Disc,Sharp pain in arm,Sharp pain in leg,Numbness,Tingling,Muscle weakness,,,, Musculoskeletal
+Herpes Simplex Virus Infection,Painful sores on mouth,Painful sores on genitals,Painful sores on rectum,Blisters,,,,,Infectious
+Herpes Zoster,Painful blistering rash,Rash on one side of body,Tingling,Fever,,,,,Infectious
+Hiatal Hernia,Heartburn,Acid reflux,Chest pain,Difficulty swallowing,,,,,Gastrointestinal
+Hidradenitis Suppurativa,Painful lumps under skin,Recurring lumps,Blackheads,Tunnels under skin,,,,,Dermatological
+Hirschsprung's Disease,Failure to pass stool,Swollen belly,Vomiting,,,,,,Gastrointestinal
+Histoplasmosis,Fever,Cough,Fatigue,Chest pain,,,,,Infectious
+Hives,Itchy welts,Raised welts,Red welts,,,,,,Dermatological
+HIV/AIDS,Flu-like symptoms,Weight loss,Recurrent infections,,,,,,Infectious
+Hoarding Disorder,Difficulty discarding possessions,Cluttered living spaces,Distress,,,,,,Mental Health
+Hodgkin's Lymphoma,Painless swelling of lymph nodes,Fever,Night sweats,Weight loss,,,,,Oncological
+HPV Infection,Often no symptoms,Can cause genital warts,Can cause cancers,,,,,,Infectious
+Huntington's Disease,Involuntary jerking movements,Cognitive decline,Mood swings,,,,,,Neurological
+Hydrocephalus,Enlarged head in infants,Headache,Nausea,Vision problems,,,,,Neurological
+Hypercholesterolemia,No symptoms,Detected by blood test,,,,,,,Cardiovascular
+Hypertension,Usually no symptoms,Sometimes headaches,Sometimes dizziness,,,,,,Cardiovascular
+Hyperthyroidism,Unexplained weight loss,Rapid heartbeat,Irregular heartbeat,Anxiety,Increased appetite,Tremors,Sweating,Difficulty sleeping, Endocrine
+Hypertrophic Cardiomyopathy,Chest pain,Shortness of breath,Fainting,Heart palpitations,,,,,Cardiovascular
+Hypoglycemia,Shakiness,Sweating,Confusion,Rapid heartbeat,,,,,Endocrine
+Hypothyroidism,Fatigue,Weight gain,Feeling cold,Depression,Dry skin,Constipation,Hair loss,Muscle weakness, Endocrine
+Jacobsen Syndrome,Developmental delay,Bleeding tendency,Congenital heart defects,,,,,,Genetic
+Jervell and Lange-Nielsen Syndrome,Syncope,Fainting,Seizures,Congenital sensorineural deafness,,,,,Genetic
+Job Syndrome,Recurrent skin abscesses,Severe eczema,Frequent lung infections,,,,,,Immunological
+Joubert Syndrome,Hypotonia,Ataxia,Abnormal breathing,Developmental delay,,,,,Neurological
+Junctional Epidermolysis Bullosa,Widespread blistering,Painful erosions,Mucosal involvement,,,,,,Dermatological
+Juvenile Dermatomyositis,Proximal muscle weakness,Characteristic skin rash,Fatigue,,,,,,Autoimmune
+Juvenile Granulomatous Arthritis,Arthritis,Skin rash,Uveitis,,,,,,Autoimmune
+Juvenile Huntington Disease,Movement abnormalities,Cognitive decline,Behavioral changes,,,,,,Neurological
+Juvenile Idiopathic Arthritis,Joint pain,Joint swelling,Morning stiffness,,,,,,Autoimmune
+Juvenile Myoclonic Epilepsy,Myoclonic jerks,Generalized seizures,Morning predominance,,,,,,Neurological
+Juvenile Nasopharyngeal Angiofibroma,Recurrent nosebleeds,Nasal obstruction,Facial swelling,,,,,,Oncological
+Juvenile Nephronophthisis,Polyuria,Polydipsia,Anemia,Progressive kidney failure,,,,,Urological
+Juvenile Open-Angle Glaucoma,Progressive vision loss,Photophobia,High intraocular pressure,,,,,,Ophthalmological
+Juvenile Paget Disease,Bone pain,Deformity,Fractures,,,,,,Musculoskeletal
+Juvenile Polyposis Syndrome,Multiple colorectal polyps,Rectal bleeding,Anemia,,,,,,Gastrointestinal
+Juvenile Systemic Lupus Erythematosus,Fatigue,Joint pain,Rash,Organ inflammation,,,,,Autoimmune
+Jarcho-Levin Syndrome,Short trunk,Malformed vertebrae,Malformed ribs,Respiratory compromise,,,,,Genetic
+Jejunal Atresia,Newborn vomiting,Abdominal distension,Failure to pass meconium,,,,,,Gastrointestinal
+Jeune Syndrome,Small narrow chest,Respiratory distress,Short stature,,,,,,Genetic
+Obesity,Excess body fat,High BMI,Increased risk of other diseases,,,,,,Endocrine
+Obsessive-Compulsive Disorder,Unwanted thoughts,Obsessions,Repetitive behaviors,Compulsions,Distress,,,, Mental Health
+Ocular Melanoma,Blurry vision,Dark spot on iris,Change in pupil shape,Floaters,,,,,Ophthalmological
+Ocular Rosacea,Dry eyes,Burning,Stinging,Blurry vision,Red eyelids,,,, Ophthalmological
+Odontoid Fracture,Severe neck pain,Stiffness,Neurological symptoms,,,,,,Musculoskeletal
+Oligohydramnios,Uterus smaller than expected,Reduced fetal movement,,,,,,,Gynecological
+Onchocerciasis,Severe itching,Skin rash,Vision changes,Blindness,,,,,Infectious
+Oppositional Defiant Disorder,Angry mood,Irritable mood,Argumentative behavior,Vindictiveness,,,,,Mental Health
+Optic Neuritis,Pain with eye movement,Blurred vision,Loss of color vision,Vision loss,,,,,Ophthalmological
+Oral Cancer,Sore that doesn't heal,Lump in mouth,Pain,Difficulty swallowing,,,,,Oncological
+Oral Lichen Planus,White lacy patches on gums,White lacy patches on tongue,Red swollen tissues,Mouth pain,,,,,Dermatological
+Oral Thrush,White patches on tongue,White patches on cheeks,Soreness,Loss of taste,,,,,Infectious
+Orchitis,Testicular pain,Testicular swelling,Fever,Nausea,Vomiting,,,, Urological
+Ornithine Transcarbamylase Deficiency,Lethargy,Vomiting,Seizures,Intellectual disability,,,,,Genetic
+Orthostatic Hypotension,Dizziness upon standing,Lightheadedness,Fainting,Blurred vision,,,,,Cardiovascular
+Osgood-Schlatter Disease,Knee pain,Swelling below kneecap,Tenderness over shinbone,,,,,,Musculoskeletal
+Osteoarthritis,Joint pain,Stiffness,Decreased flexibility,Bone spurs,,,,,Musculoskeletal
+Osteochondritis Dissecans,Joint pain,Swelling,Catching of joint,Locking of joint,,,,,Musculoskeletal
+Osteogenesis Imperfecta,Bones that break easily,Bone deformities,Blue sclerae,,,,,,Genetic
+Osteomalacia,Dull aching bone pain,Muscle weakness,Difficulty walking,,,,,,Musculoskeletal
+Osteomyelitis,Bone pain,Fever,Swelling over area,Redness over area,Fatigue,,,, Infectious
+Osteonecrosis,Joint pain,Severe joint pain,Limited range of motion,,,,,,Musculoskeletal
+Osteopetrosis,Frequent fractures,Bone pain,Vision problems,Hearing problems,Anemia,,,, Genetic
+Osteoporosis,Often no symptoms until fracture,Loss of height,Stooped posture,,,,,,Musculoskeletal
+Osteosarcoma,Bone pain worse at night,Swelling near bone,Broken bone,,,,,,Oncological
+Otitis Externa,Ear pain,Itching in ear canal,Redness,Discharge from ear,,,,,Infectious
+Otitis Media,Ear pain,Fluid drainage,Hearing difficulty,Fever,,,,,Infectious
+Otosclerosis,Gradual hearing loss,Ringing in ear,Tinnitus,Dizziness,,,,,Otological
+Ovarian Cancer,Bloating,Pelvic pain,Abdominal pain,Feeling full quickly,Urinary urgency,,,, Oncological
+Ovarian Cysts,Pelvic pain,Bloating,Fullness in abdomen,,,,,,Gynecological
+Overactive Bladder,Sudden urge to urinate,Frequent urination,Nocturia,,,,,,Urological
+Sarcoidosis,Persistent dry cough,Shortness of breath,Fatigue,Skin rashes,,,,,Autoimmune
+Scabies,Intense itching worse at night,Pimple-like rash,Burrows in skin,,,,,,Dermatological
+Scarlet Fever,Red sandpaper-like rash,Sore throat,High fever,Strawberry tongue,,,,,Infectious
+Schistosomiasis,Abdominal pain,Diarrhea,Blood in stool,Blood in urine,Fever,,,, Infectious
+Schizophrenia,Hallucinations,Delusions,Disorganized thinking,Social withdrawal,Difficulty concentrating,Lack of emotion,Confused speech,, Mental Health
+Sciatica,Pain radiating from lower back,Pain down one leg,Numbness,Weakness,,,,,Musculoskeletal
+Scleroderma,Hardened skin,Tight skin patches,Cold numb fingers,Cold numb toes,Joint pain,,,, Autoimmune
+Scoliosis,Uneven shoulders,Uneven waist,One hip higher,Spine curvature,,,,,Musculoskeletal
+Scurvy,Fatigue,Swollen gums,Bleeding gums,Joint pain,Easy bruising,,,, Nutritional
+Seasonal Affective Disorder,Depression during specific seasons,Low energy,Oversleeping,,,,,,Mental Health
+Seborrheic Dermatitis,Scaly patches,Red skin,Stubborn dandruff on scalp,Stubborn dandruff on face,Stubborn dandruff on chest,,,, Dermatological
+Sepsis,High heart rate,Fever,Low temperature,Confusion,Extreme pain,,,, Infectious
+SARS,High fever,Dry cough,Shortness of breath,Muscle aches,,,,,Infectious
+Shigellosis,Bloody diarrhea,Fever,Stomach cramps,,,,,,Infectious
+Shingles,Painful rash with blisters,Rash on one side of body,Burning pain,Tingling pain,,,,,Infectious
+Sickle Cell Anemia,Episodes of severe pain,Pain crises,Fatigue,Swelling of hands,Swelling of feet,Yellow skin,,, Hematological
+Silicosis,Shortness of breath,Chronic cough,Fatigue,Chest pain,,,,,Respiratory
+Sinusitis,Facial pain,Facial pressure,Stuffy nose,Runny nose,Headache,Loss of smell,,, Respiratory
+Sjögren's Syndrome,Dry eyes,Dry mouth,Fatigue,Joint pain,,,,,Autoimmune
+Sleep Apnea,Loud snoring,Stopping breathing during sleep,Daytime sleepiness,,,,,,Sleep Disorder
+Smallpox,High fever,Body aches,Distinctive rash,Fluid-filled blisters,,,,,Infectious
+Social Anxiety Disorder,Intense fear of social situations,Worry about embarrassment,Avoiding people,,,,,,Mental Health
+Soft Tissue Sarcoma,Painful lump,Swelling,Abdominal pain,,,,,,Oncological
+Spina Bifida,Opening in back,Leg weakness,Bowel problems,Bladder problems,,,,,Congenital
+Spinal Muscular Atrophy,Progressive muscle weakness,Poor muscle tone,Trouble with motor skills,,,,,,Neurological
+Spinal Stenosis,Back pain,Neck pain,Numbness in limbs,Weakness in limbs,Balance problems,,,, Musculoskeletal
+Spondylolisthesis,Lower back pain,Pain radiating down legs,Muscle tightness,,,,,,Musculoskeletal
+Staphylococcal Infection,Boils on skin,Pus-filled bumps,Redness,Swelling,Pain,,,, Infectious
+Stevens-Johnson Syndrome,Flu-like symptoms,Painful red rash,Painful purple rash,Blisters,,,,,Dermatological
+Stiff Person Syndrome,Progressive muscle stiffness,Painful muscle spasms,,,,,,,Neurological
+Stomach Cancer,Indigestion,Stomach pain,Feeling full after small meals,Unintentional weight loss,,,,,Oncological
+Strabismus,Eyes don't look in same direction,Poor depth perception,,,,,,,Ophthalmological
+Strep Throat,Severe sore throat,Pain when swallowing,Fever,Tiny red spots on roof of mouth,,,,,Infectious
+Stroke,Sudden numbness on one side,Sudden weakness on one side,Confusion,Trouble speaking,Trouble seeing,,,, Cardiovascular
+Stye,Painful red lump on eyelid,Swelling of eyelid,,,,,,,Ophthalmological
+Subarachnoid Hemorrhage,Sudden severe thunderclap headache,Nausea,Loss of consciousness,,,,,,Cardiovascular
+Sudden Infant Death Syndrome,No visible symptoms,Unexpected death of healthy infant,,,,,,,Unexplained
+Syphilis,Painless sore,Chancre,Body rash,Can be asymptomatic,,,,,Infectious
+Syringomyelia,Progressive weakness in back,Progressive weakness in shoulders,Progressive weakness in arms,Progressive weakness in legs,Pain in back,Pain in shoulders,Pain in arms,Pain in legs, Neurological
+Systemic Lupus Erythematosus,Fatigue,Joint pain,Butterfly-shaped facial rash,Fever,Chest pain,Hair loss,Sensitivity to sunlight,Kidney problems, Autoimmune
+Vaginitis,Vaginal discharge,Itching,Burning,,,,,,Gynecological
+Vulvovaginal Candidiasis,Intense itching,Thick white discharge,Burning,,,,,,Infectious
+Vulvitis,Vulvar redness,Itching,Soreness,,,,,,Gynecological
+Vaginal Cancer,Vaginal bleeding,Pelvic pain,Discharge,,,,,,Oncological
+Vulvar Cancer,Vulvar lump,Itching,Bleeding,,,,,,Oncological
+Varicella,Fever,Itchy vesicular rash,Malaise,,,,,,Infectious
+Varicose Veins,Leg pain,Swelling,Visible bulging veins,,,,,,Cardiovascular
+Varicocele,Scrotal heaviness,Visible enlarged veins,Infertility,,,,,,Urological
+Vasculitis,Fever,Rash,Organ-specific symptoms,Fatigue,,,,,Autoimmune
+Vasovagal Syncope,Fainting,Lightheadedness,Sweating,,,,,,Cardiovascular
+Vascular Dementia,Memory loss,Slowed thinking,Confusion,,,,,,Neurological
+Viral Hepatitis,Jaundice,Fatigue,Abdominal pain,Dark urine,,,,,Infectious
+Viral Meningitis,Headache,Fever,Neck stiffness,Photophobia,,,,,Infectious
+Viral Encephalitis,Fever,Confusion,Seizures,Headache,,,,,Infectious
+Viral Conjunctivitis,Red eye,Tearing,Watery discharge,,,,,,Infectious
+Viral Gastroenteritis,Diarrhea,Vomiting,Abdominal cramps,Fever,,,,,Infectious
+Viral Pneumonia,Cough,Fever,Shortness of breath,Chest pain,,,,,Infectious
+Viral Hemorrhagic Fever,High fever,Bleeding,Shock,Organ failure,,,,,Infectious
+Viral Myocarditis,Chest pain,Breathlessness,Palpitations,Fatigue,,,,,Cardiovascular
+Viral Bronchiolitis,Wheeze,Cough,Difficulty breathing,Fever,,,,,Respiratory
+Visceral Leishmaniasis,Fever,Weight loss,Splenomegaly,Anemia,,,,,Infectious
+Vitiligo,Patchy depigmentation,Asymptomatic,Sun sensitivity,,,,,,Dermatological
+Vitreous Hemorrhage,Sudden floaters,Blurred vision,Visual loss,,,,,,Ophthalmological
+Vogt-Koyanagi-Harada Disease,Uveitis,Vitiligo,Hearing loss,Meningismus,,,,,Autoimmune
+Von Willebrand Disease,Easy bruising,Mucosal bleeding,Heavy periods,,,,,,Hematological
+Ventricular Tachycardia,Palpitations,Dizziness,Syncope,Chest pain,,,,,Cardiovascular
+Ventricular Fibrillation,Sudden collapse,Pulselessness,Loss of consciousness,,,,,,Cardiovascular
+Ventricular Septal Defect,Heart murmur,Breathlessness,Failure to thrive,Recurrent infections,,,,,Cardiovascular
+Vulvodynia,Chronic vulvar pain,Burning,Dyspareunia,,,,,,Gynecological
+Venous Malformation,Soft compressible mass,Swelling,Pain,,,,,,Cardiovascular
+Variegate Porphyria,Abdominal pain,Neuropsychiatric symptoms,Photosensitivity,,,,,,Genetic
+Waldenström Macroglobulinemia,Fatigue,Bleeding,Visual disturbances,,,,,,Oncological
+Waardenburg Syndrome,Congenital patchy depigmentation,White forelock,Sensorineural hearing loss,,,,,,Genetic
+Walker-Warburg Syndrome,Severe hypotonia,Developmental delay,Eye abnormalities,,,,,,Genetic
+Waterhouse-Friderichsen Syndrome,Rapid fever,Petechial rash,Shock,Acute adrenal failure,,,,,Infectious
+West Nile Virus Infection,Fever,Headache,Muscle weakness,,,,,,Infectious
+West Syndrome,Infant spasms,Developmental regression,Chaotic EEG,,,,,,Neurological
+Whooping Cough,Prolonged paroxysmal cough,Inspiratory whoop,Vomiting,,,,,,Infectious
+Wiskott-Aldrich Syndrome,Eczema,Recurrent infections,Bleeding from low platelets,,,,,,Immunological
+Wolff-Parkinson-White Syndrome,Palpitations,Rapid heart rate,Possible syncope,,,,,,Cardiovascular
+Wernicke Encephalopathy,Confusion,Ataxia,Ophthalmoplegia,,,,,,Neurological
+Wernicke-Korsakoff Syndrome,Acute Wernicke signs,Chronic severe memory loss,Confabulation,,,,,,Neurological
+Wilson Disease,Hepatic dysfunction,Tremor,Dystonia,Psychiatric changes,,,,,Genetic
+Whipple Disease,Weight loss,Chronic diarrhea,Arthralgia,Malabsorption,,,,,Infectious
+Warts,Raised rough skin lesions,Sometimes painful plantar warts,,,,,,,Dermatological
+White Piedra,Soft nodules on hair shafts,Itching,Hair breakage,,,,,,Infectious
+White Sponge Nevus,White spongy oral mucosal patches,Usually painless,,,,,,,Dermatological
+Wilms Tumor,Abdominal mass,Pain,Hematuria in children,,,,,,Oncological
+Wandering Spleen,Intermittent abdominal pain,Palpable mobile mass,,,,,,,Gastrointestinal
+Wunderlich Syndrome,Sudden flank pain,Hematuria,Possible shock,,,,,,Urological
+Wolman Disease,Failure to thrive,Hepatosplenomegaly,,,,,,,Genetic
+Warburg Micro Syndrome,Microcephaly,Congenital cataracts,Severe developmental delay,,,,,,Genetic
+Wells Syndrome,Itchy red plaques,Blistering,Recurrent episodes,,,,,,Dermatological
+Warfarin-Induced Skin Necrosis,Painful purpura,Skin necrosis,,,,,,,Iatrogenic
+White Coat Hypertension,High clinic BP readings,Normal home BP,,,,,,,Cardiovascular
+Wagner Syndrome,Progressive vision loss,Myopia,Retinal detachment risk,,,,,,Ophthalmological
+Wyburn-Mason Syndrome,Visual deficits,Seizures,Neurologic signs from AVMs,,,,,,Neurological
