@@ -1,0 +1,21 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "QuizApplication",
+            "request": "launch",
+            "mainClass": "com.medical_quiz.QuizApplication",
+            "projectName": "quiz"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-QuizApplication<quiz>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "QuizApplication",
+            "projectName": "quiz",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

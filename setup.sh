@@ -2,7 +2,7 @@
 # setup.sh - Quick setup script
 
 
-export M2_HOME=c:\Users\thoma\Desktop\apache-maven-3.9.12-bin
+export M2_HOME=c:\Users\thoma\Desktop\apache-maven-3.9.12
 export PATH=$M2_HOME/bin:$PATH
 export JAVA_HOME=c:\Users\thoma\Desktop\jdk-25.0.1.8-hotspot
 
