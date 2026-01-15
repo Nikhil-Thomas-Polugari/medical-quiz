@@ -1,4 +1,4 @@
-package cDTO;
+package DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
