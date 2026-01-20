@@ -1,4 +1,4 @@
-package Controller;
+package com.medicalquiz.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import DTO.AnswerResponseDTO;
-import DTO.AnswerSubmissionDTO;
-import DTO.QuestionDTO;
-import Service.QuestionService;
+import com.medicalquiz.DTO.AnswerResponseDTO;
+import com.medicalquiz.DTO.AnswerSubmissionDTO;
+import com.medicalquiz.DTO.QuestionDTO;
+import com.medicalquiz.Service.QuestionService;
 import jakarta.validation.Valid;
 
 @RestController

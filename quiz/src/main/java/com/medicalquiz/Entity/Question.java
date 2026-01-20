@@ -1,4 +1,4 @@
-package com.medicalquiz.entity;
+package com.medicalquiz.Entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

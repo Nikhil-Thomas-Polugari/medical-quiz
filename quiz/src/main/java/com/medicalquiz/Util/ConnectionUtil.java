@@ -1,4 +1,4 @@
-package Util;
+package com.medicalquiz.Util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

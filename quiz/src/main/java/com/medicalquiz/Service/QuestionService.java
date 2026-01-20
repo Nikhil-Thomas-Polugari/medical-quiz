@@ -1,8 +1,10 @@
-package com.medicalquiz.service;
+package com.medicalquiz.Service;
 
-import com.medicalquiz.entity.Question;
-import com.medicalquiz.dto.*;
-import com.medicalquiz.util.ConnectionUtil;
+import com.medicalquiz.DTO.AnswerResponseDTO;
+import com.medicalquiz.DTO.AnswerSubmissionDTO;
+import com.medicalquiz.DTO.QuestionDTO;
+import com.medicalquiz.Service.QuestionService;
+import com.medicalquiz.Util.ConnectionUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.sql.*;
@@ -13,8 +15,6 @@ public class QuestionService {
     
     @Autowired
     private ConnectionUtil connectionUtil;
-    
-    private final Random random = new Random();
     
     public QuestionDTO getRandomQuestion() {
         String query = "SELECT QUESTION_ID, QUESTION_TEXT, DIFFICULTY, CATEGORY FROM QUESTIONS ORDER BY RANDOM() LIMIT 1";
