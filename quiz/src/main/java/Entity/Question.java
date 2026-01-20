@@ -1,4 +1,4 @@
-package Entity;
+package com.medicalquiz.entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,10 +10,7 @@ import lombok.AllArgsConstructor;
 public class Question {
     private Long questionId;
     private String questionText;
-    private String optionA;
-    private String optionB;
-    private String optionC;
-    private String optionD;
-    private String correctAnswer;
+    private String correctAnswer;  // Just the answer text
     private String difficulty;
+    private String category;  // Optional: e.g., "Infectious", "Cardiovascular"
 }

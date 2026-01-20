@@ -1,4 +1,4 @@
-package DTO;
+package com.medicalquiz.dto;
 
 import lombok.Data;
 import lombok.AllArgsConstructor;
@@ -10,9 +10,7 @@ import lombok.NoArgsConstructor;
 public class QuestionDTO {
     private Long questionId;
     private String questionText;
-    private String optionA;
-    private String optionB;
-    private String optionC;
-    private String optionD;
     private String difficulty;
+    private String category;
+    // No options needed!
 }
