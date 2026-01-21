@@ -8,7 +8,6 @@ import lombok.AllArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Question {
-    private Long questionId;
     private String questionText;
     private String correctAnswer;  // Just the answer text
     private String difficulty;
