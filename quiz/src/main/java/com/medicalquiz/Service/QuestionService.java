@@ -3,12 +3,12 @@ package com.medicalquiz.Service;
 import com.medicalquiz.DTO.AnswerResponseDTO;
 import com.medicalquiz.DTO.AnswerSubmissionDTO;
 import com.medicalquiz.DTO.QuestionDTO;
-import com.medicalquiz.Service.QuestionService;
 import com.medicalquiz.Util.ConnectionUtil;
+import com.medicalquiz.Exceptions.QuestionException;
+import com.medicalquiz.Exceptions.AnswerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.sql.*;
-import java.util.Random;
 
 @Service
 public class QuestionService {
@@ -31,44 +31,52 @@ public class QuestionService {
                     rs.getString("CATEGORY")
                 );
             } else {
-                throw new RuntimeException("No questions available");
+                throw new QuestionException("Creator forgot to load questions into the database or the Code has amnesia!");
             }
             
         } catch (SQLException e) {
-            throw new RuntimeException("Error fetching random question", e);
+            throw new QuestionException("Congrads! You make the code to blank out so hard, it couldn't grab a question", e);
         }
     }
     
     public AnswerResponseDTO checkAnswer(AnswerSubmissionDTO submission) {
-        String query = "SELECT CORRECT_ANSWER FROM QUESTIONS WHERE QUESTION_ID = ?";
+    String query = "SELECT CORRECT_ANSWER FROM QUESTIONS WHERE QUESTION_ID = ?";
+    
+    try (Connection conn = connectionUtil.getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(query)) {
         
-        try (Connection conn = connectionUtil.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(query)) {
-            
-            pstmt.setLong(1, submission.getQuestionId());
-            
-            try (ResultSet rs = pstmt.executeQuery()) {
-                if (rs.next()) {
-                    String correctAnswer = rs.getString("CORRECT_ANSWER").trim().toLowerCase();
-                    String userAnswer = submission.getAnswer().trim().toLowerCase();
-                    
-                    // Exact match
-                    boolean isCorrect = correctAnswer.equals(userAnswer);
-                    
-                    // Optional: Fuzzy matching (allow minor typos)
-                    // isCorrect = isSimilar(correctAnswer, userAnswer);
-                    
-                    String message = isCorrect ? "Correct!" : "Incorrect!";
-                    return new AnswerResponseDTO(isCorrect, rs.getString("CORRECT_ANSWER"), message);
+        pstmt.setLong(1, submission.getQuestionId());
+        
+        try (ResultSet rs = pstmt.executeQuery()) {
+            if (rs.next()) {
+                String correctAnswer = rs.getString("CORRECT_ANSWER").trim();
+                String userAnswer = submission.getAnswer().trim();
+                
+                // First try exact match (case-insensitive)
+                boolean isExactMatch = correctAnswer.equalsIgnoreCase(userAnswer);
+                
+                // If not exact, try fuzzy match for typos
+                boolean isCorrect = isExactMatch || isSimilar(correctAnswer, userAnswer);
+                
+                String message;
+                if (isExactMatch) {
+                    message = "Correct!";
+                } else if (isCorrect) {
+                    message = "Correct! (Close enough - watch your spelling)";
                 } else {
-                    throw new RuntimeException("Question not found");
+                    message = "Incorrect. The correct answer is: " + correctAnswer;
                 }
+                
+                return new AnswerResponseDTO(isCorrect, correctAnswer, message);
+            } else {
+                throw new QuestionException("Code must have blanked out and lost the question ID!");
             }
-            
-        } catch (SQLException e) {
-            throw new RuntimeException("Error checking answer", e);
         }
+        
+    } catch (SQLException e) {
+        throw new AnswerException("How did you break the answer checking portion?", e);
     }
+}
     
     public long getTotalQuestionCount() {
         String query = "SELECT COUNT(*) as total FROM QUESTIONS";
@@ -83,7 +91,7 @@ public class QuestionService {
             return 0;
             
         } catch (SQLException e) {
-            throw new RuntimeException("Error counting questions", e);
+            throw new QuestionException("It seems that the code can't count questions", e);
         }
     }
     
