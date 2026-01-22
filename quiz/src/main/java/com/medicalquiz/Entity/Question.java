@@ -8,9 +8,7 @@ import lombok.AllArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Question {
-    private Long questionId;
-    private String questionText;
-    private String correctAnswer;  // Just the answer text
-    private String difficulty;
-    private String category;  // Optional: e.g., "Infectious", "Cardiovascular"
+    private String question;   // The question text
+    private String answer;     // The correct answer
+    private Integer answered;  // Number of times answered or answer status
 }

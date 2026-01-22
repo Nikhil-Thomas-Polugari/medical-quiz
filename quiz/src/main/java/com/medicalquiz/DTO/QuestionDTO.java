@@ -1,29 +1,19 @@
 package com.medicalquiz.DTO;
 
 public class QuestionDTO {
-    private Long questionId;
-    private String questionText;
-    private String difficulty;
-    private String category;
+    private String question;
+    private Integer answered;
     
-    // Constructor
-    public QuestionDTO(Long questionId, String questionText, String difficulty, String category) {
-        this.questionId = questionId;
-        this.questionText = questionText;
-        this.difficulty = difficulty;
-        this.category = category;
+    // Constructor - only includes fields that should be sent to client
+    public QuestionDTO(String question, Integer answered) {
+        this.question = question;
+        this.answered = answered;
     }
     
     // Getters and Setters
-    public Long getQuestionId() { return questionId; }
-    public void setQuestionId(Long questionId) { this.questionId = questionId; }
+    public String getQuestion() { return question; }
+    public void setQuestion(String question) { this.question = question; }
     
-    public String getQuestionText() { return questionText; }
-    public void setQuestionText(String questionText) { this.questionText = questionText; }
-    
-    public String getDifficulty() { return difficulty; }
-    public void setDifficulty(String difficulty) { this.difficulty = difficulty; }
-    
-    public String getCategory() { return category; }
-    public void setCategory(String category) { this.category = category; }
+    public Integer getAnswered() { return answered; }
+    public void setAnswered(Integer answered) { this.answered = answered; }
 }
