@@ -45,7 +45,7 @@ class SecurityConfigTest {
     void testCorsEnabled() throws Exception {
         // Test with Origin header
         mockMvc.perform(get("/api/questions/count")
-                .header("Origin", "http://localhost:3000"))
+                .header("Origin", "http://localhost:8080"))
                 .andExpect(status().is2xxSuccessful());
         
         System.out.println("✓ CORS is properly configured");
