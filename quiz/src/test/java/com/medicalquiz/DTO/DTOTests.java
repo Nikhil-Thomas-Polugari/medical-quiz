@@ -16,16 +16,12 @@ class DTOTests {
         @DisplayName("Test QuestionDTO constructor and getters")
         void testQuestionDTOConstructor() {
             QuestionDTO dto = new QuestionDTO(
-                1L,
-                "What is the diagnosis?",
-                "Medium",
-                "Cardiovascular"
+                "A patient presents with fever and cough. What is the diagnosis?",
+                "Pneumonia"
             );
 
-            assertEquals(1L, dto.getQuestionId());
-            assertEquals("What is the diagnosis?", dto.getQuestionText());
-            assertEquals("Medium", dto.getDifficulty());
-            assertEquals("Cardiovascular", dto.getCategory());
+            assertEquals("A patient presents with fever and cough. What is the diagnosis?", dto.getQuestion());
+            assertEquals("Pneumonia", dto.getAnswer());
 
             System.out.println("✓ QuestionDTO constructor and getters work");
         }
@@ -33,17 +29,16 @@ class DTOTests {
         @Test
         @DisplayName("Test QuestionDTO setters")
         void testQuestionDTOSetters() {
-            QuestionDTO dto = new QuestionDTO(1L, "Test", "Easy", "Test");
+            QuestionDTO dto = new QuestionDTO(
+                "A patient presents with White patches in mouth, Skin rash and itching and Vaginal discharge. What is the most likely diagnosis?",
+                "Candidiasis"
+            );
 
-            dto.setQuestionId(2L);
-            dto.setQuestionText("Updated question");
-            dto.setDifficulty("Hard");
-            dto.setCategory("Neurological");
+            dto.setQuestion("Updated question");
+            dto.setAnswer("Updated answer");
 
-            assertEquals(2L, dto.getQuestionId());
-            assertEquals("Updated question", dto.getQuestionText());
-            assertEquals("Hard", dto.getDifficulty());
-            assertEquals("Neurological", dto.getCategory());
+            assertEquals("Updated question", dto.getQuestion());
+            assertEquals("Updated answer", dto.getAnswer());
 
             System.out.println("✓ QuestionDTO setters work");
         }
@@ -51,12 +46,10 @@ class DTOTests {
         @Test
         @DisplayName("Test QuestionDTO handles null values")
         void testQuestionDTONullValues() {
-            QuestionDTO dto = new QuestionDTO(null, null, null, null);
+            QuestionDTO dto = new QuestionDTO(null, null);
 
-            assertNull(dto.getQuestionId());
-            assertNull(dto.getQuestionText());
-            assertNull(dto.getDifficulty());
-            assertNull(dto.getCategory());
+            assertNull(dto.getQuestion());
+            assertNull(dto.getAnswer());
 
             System.out.println("✓ QuestionDTO handles null values");
         }
@@ -71,10 +64,8 @@ class DTOTests {
         void testAnswerSubmissionDTO() {
             AnswerSubmissionDTO dto = new AnswerSubmissionDTO();
 
-            dto.setQuestionId(1L);
             dto.setAnswer("Pneumonia");
 
-            assertEquals(1L, dto.getQuestionId());
             assertEquals("Pneumonia", dto.getAnswer());
 
             System.out.println("✓ AnswerSubmissionDTO getters and setters work");
@@ -85,7 +76,6 @@ class DTOTests {
         void testAnswerSubmissionDTODefaults() {
             AnswerSubmissionDTO dto = new AnswerSubmissionDTO();
 
-            assertNull(dto.getQuestionId());
             assertNull(dto.getAnswer());
 
             System.out.println("✓ AnswerSubmissionDTO default values are null");
@@ -95,10 +85,8 @@ class DTOTests {
         @DisplayName("Test AnswerSubmissionDTO with empty answer")
         void testAnswerSubmissionDTOEmptyAnswer() {
             AnswerSubmissionDTO dto = new AnswerSubmissionDTO();
-            dto.setQuestionId(1L);
             dto.setAnswer("");
 
-            assertEquals(1L, dto.getQuestionId());
             assertEquals("", dto.getAnswer());
 
             System.out.println("✓ AnswerSubmissionDTO handles empty strings");
@@ -182,28 +170,26 @@ class DTOTests {
         void testFullFlow() {
             // Create a question
             QuestionDTO question = new QuestionDTO(
-                1L,
-                "Patient presents with chest pain. Diagnosis?",
-                "Medium",
-                "Cardiovascular"
+                "A patient presents with fever and cough. What is the diagnosis?",
+                "Pneumonia"
             );
 
             // Create answer submission
             AnswerSubmissionDTO submission = new AnswerSubmissionDTO();
-            submission.setQuestionId(question.getQuestionId());
-            submission.setAnswer("Heart Attack");
+            submission.setAnswer("Pneumonia");
 
             // Create response
             AnswerResponseDTO response = new AnswerResponseDTO(
                 true,
-                "Heart Attack",
+                "Pneumonia",
                 "Correct!"
             );
 
             // Verify the flow
-            assertEquals(question.getQuestionId(), submission.getQuestionId());
+            assertNotNull(question.getQuestion());
+            assertEquals("Pneumonia", submission.getAnswer());
             assertTrue(response.isCorrect());
-            assertEquals(submission.getAnswer(), response.getCorrectAnswer());
+            assertEquals(question.getAnswer(), response.getCorrectAnswer());
 
             System.out.println("✓ Full DTO flow works end-to-end");
         }

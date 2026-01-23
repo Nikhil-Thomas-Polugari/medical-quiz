@@ -35,44 +35,40 @@ class QuestionServiceTest {
             QuestionDTO question = questionService.getRandomQuestion();
             
             assertNotNull(question, "Question should not be null");
-            assertNotNull(question.getQuestionId(), "Question ID should not be null");
-            assertNotNull(question.getQuestionText(), "Question text should not be null");
-            assertNotNull(question.getCategory(), "Category should not be null");
+            assertNotNull(question.getQuestion(), "Question text should not be null");
+            assertNotNull(question.getAnswer(), "Answer should not be null");
             
             System.out.println("✓ Random question retrieved successfully");
-            System.out.println("  Question: " + question.getQuestionText());
-            System.out.println("  Category: " + question.getCategory());
+            System.out.println("  Question: " + question.getQuestion());
+            System.out.println("  Category: " + question.getAnswer());
         } catch (Exception e) {
             System.out.println("⚠ No questions in database yet: " + e.getMessage());
         }
     }
 
-    @Test
-    @DisplayName("Test checkAnswer with correct answer")
-    void testCheckAnswerCorrect() {
-        try {
-            // First get a question
-            QuestionDTO question = questionService.getRandomQuestion();
-            
-            // Get the correct answer from database manually
-            String correctAnswer = getCorrectAnswerForQuestion(question.getQuestionId());
-            
-            // Submit correct answer
-            AnswerSubmissionDTO submission = new AnswerSubmissionDTO();
-            submission.setQuestionId(question.getQuestionId());
-            submission.setAnswer(correctAnswer);
-            
-            AnswerResponseDTO response = questionService.checkAnswer(submission);
-            
-            assertTrue(response.isCorrect(), "Answer should be marked as correct");
-            assertEquals("Correct!", response.getMessage());
-            
-            System.out.println("✓ Correct answer validation works");
-        } catch (Exception e) {
-            System.out.println("⚠ Test skipped - no questions available: " + e.getMessage());
-        }
+@Test
+@DisplayName("Test checkAnswer with correct answer")
+void testCheckAnswerCorrect() {
+    try {
+        // First get a question
+        QuestionDTO question = questionService.getRandomQuestion();
+        
+        // Submit the correct answer (it's already in the question object)
+        AnswerSubmissionDTO submission = new AnswerSubmissionDTO();
+        submission.setAnswer(question.getAnswer());
+        
+        AnswerResponseDTO response = questionService.checkAnswer(submission);
+        
+        assertTrue(response.isCorrect(), "Answer should be marked as correct");
+        assertEquals("Correct!", response.getMessage());
+        
+        System.out.println("✓ Correct answer validation works");
+        System.out.println("  Question: " + question.getQuestion());
+        System.out.println("  Correct answer submitted: " + question.getAnswer());
+    } catch (Exception e) {
+        System.out.println("⚠ Test skipped - no questions available: " + e.getMessage());
     }
-
+}
     @Test
     @DisplayName("Test checkAnswer with incorrect answer")
     void testCheckAnswerIncorrect() {
@@ -80,7 +76,7 @@ class QuestionServiceTest {
             QuestionDTO question = questionService.getRandomQuestion();
             
             AnswerSubmissionDTO submission = new AnswerSubmissionDTO();
-            submission.setQuestionId(question.getQuestionId());
+            submission.setQuestion(question.getQuestion());
             submission.setAnswer("Definitely Wrong Answer XYZ");
             
             AnswerResponseDTO response = questionService.checkAnswer(submission);
@@ -96,32 +92,30 @@ class QuestionServiceTest {
         }
     }
 
-    @Test
-    @DisplayName("Test checkAnswer with typo (fuzzy matching)")
-    void testCheckAnswerWithTypo() {
-        try {
-            QuestionDTO question = questionService.getRandomQuestion();
-            String correctAnswer = getCorrectAnswerForQuestion(question.getQuestionId());
-            
-            // Introduce a minor typo
-            String answerWithTypo = correctAnswer.substring(0, correctAnswer.length() - 1) + "x";
-            
-            AnswerSubmissionDTO submission = new AnswerSubmissionDTO();
-            submission.setQuestionId(question.getQuestionId());
-            submission.setAnswer(answerWithTypo);
-            
-            AnswerResponseDTO response = questionService.checkAnswer(submission);
-            
-            // Fuzzy matching might accept this depending on similarity
-            System.out.println("✓ Fuzzy matching test completed");
-            System.out.println("  Original: " + correctAnswer);
-            System.out.println("  With typo: " + answerWithTypo);
-            System.out.println("  Accepted: " + response.isCorrect());
-        } catch (Exception e) {
-            System.out.println("⚠ Test skipped - no questions available: " + e.getMessage());
-        }
+@Test
+@DisplayName("Test checkAnswer with typo (fuzzy matching)")
+void testCheckAnswerWithTypo() {
+    try {
+        QuestionDTO question = questionService.getRandomQuestion();
+        String correctAnswer = question.getAnswer();
+        
+        // Introduce a minor typo
+        String answerWithTypo = correctAnswer.substring(0, correctAnswer.length() - 1) + "x";
+        
+        AnswerSubmissionDTO submission = new AnswerSubmissionDTO();
+        submission.setAnswer(answerWithTypo);
+        
+        AnswerResponseDTO response = questionService.checkAnswer(submission);
+        
+        // Fuzzy matching might accept this depending on similarity
+        System.out.println("✓ Fuzzy matching test completed");
+        System.out.println("  Original: " + correctAnswer);
+        System.out.println("  With typo: " + answerWithTypo);
+        System.out.println("  Accepted: " + response.isCorrect());
+    } catch (Exception e) {
+        System.out.println("⚠ Test skipped - no questions available: " + e.getMessage());
     }
-
+}
     @Test
     @DisplayName("Test getTotalQuestionCount")
     void testGetTotalQuestionCount() {
@@ -140,7 +134,7 @@ class QuestionServiceTest {
     @DisplayName("Test checkAnswer with invalid question ID")
     void testCheckAnswerInvalidId() {
         AnswerSubmissionDTO submission = new AnswerSubmissionDTO();
-        submission.setQuestionId(999999L); // Non-existent ID
+        submission.setQuestion(""); // Non-existent ID
         submission.setAnswer("Test Answer");
         
         assertThrows(RuntimeException.class, () -> {

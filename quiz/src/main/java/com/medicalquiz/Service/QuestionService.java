@@ -5,7 +5,6 @@ import com.medicalquiz.DTO.AnswerSubmissionDTO;
 import com.medicalquiz.DTO.QuestionDTO;
 import com.medicalquiz.Util.ConnectionUtil;
 import com.medicalquiz.Exceptions.QuestionException;
-import com.medicalquiz.Exceptions.AnswerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
@@ -23,7 +22,7 @@ public class QuestionService {
     private String currentAnswer;
     
     public QuestionDTO getRandomQuestion() {
-        String query = "SELECT QUESTION, ANSWER, ANSWERED FROM QUESTIONS ORDER BY RANDOM() LIMIT 1";
+        String query = "SELECT QUESTION, ANSWER FROM MEDICAL_QUIZ_QUESTIONS ORDER BY RANDOM() LIMIT 1";
         
         try (Connection conn = connectionUtil.getConnection();
              Statement stmt = conn.createStatement();
@@ -34,11 +33,9 @@ public class QuestionService {
                 currentQuestion = rs.getString("QUESTION");
                 currentAnswer = rs.getString("ANSWER");
                 
-                // Return only the question (not the answer!)
-                return new QuestionDTO(
-                    currentQuestion,
-                    rs.getInt("ANSWERED")
-                );
+                // Return only the question (NOT the answer - that would be cheating!)
+                // We pass null for the answer field since users shouldn't see it
+                return new QuestionDTO(currentQuestion, null);
             } else {
                 throw new QuestionException("Creator forgot to load questions into the database or the Code has amnesia!");
             }
@@ -49,13 +46,9 @@ public class QuestionService {
     }
     
     public AnswerResponseDTO checkAnswer(AnswerSubmissionDTO submission) {
-        // Verify this is the current question
+        // Verify we have a current question
         if (currentQuestion == null) {
             throw new QuestionException("No question has been requested yet! Get a question first.");
-        }
-        
-        if (!currentQuestion.equals(submission.getQuestion())) {
-            throw new QuestionException("This is not the current question! Please answer the question that was asked.");
         }
         
         String userAnswer = submission.getAnswer().trim();
@@ -78,18 +71,22 @@ public class QuestionService {
         
         // Update the ANSWERED count if correct
         if (isCorrect) {
-            updateAnsweredCount(currentQuestion);
+            markAsAnswered(currentQuestion);
         }
+        
+        // Store the answered question and answer before clearing
+        String answeredQuestion = currentQuestion;
+        String answeredCorrectAnswer = currentAnswer;
         
         // Clear the current question after checking
         currentQuestion = null;
         currentAnswer = null;
         
-        return new AnswerResponseDTO(isCorrect, correctAnswer, message);
+        return new AnswerResponseDTO(isCorrect, answeredCorrectAnswer, message);
     }
     
     public long getTotalQuestionCount() {
-        String query = "SELECT COUNT(*) as total FROM QUESTIONS";
+        String query = "SELECT COUNT(*) as total FROM MEDICAL_QUIZ_QUESTIONS";
         
         try (Connection conn = connectionUtil.getConnection();
              Statement stmt = conn.createStatement();
@@ -120,20 +117,20 @@ public class QuestionService {
     }
     
     /**
-     * Update the ANSWERED count when a question is answered correctly
+     * Mark the question as answered (set ANSWERED to 1)
      */
-    private void updateAnsweredCount(String question) {
-        String query = "UPDATE QUESTIONS SET ANSWERED = ANSWERED + 1 WHERE QUESTION = ?";
+    private void markAsAnswered(String question) {
+        String query = "UPDATE MEDICAL_QUIZ_QUESTIONS SET ANSWERED = 1 WHERE QUESTION = ? AND ANSWERED = 0";
         
         try (Connection conn = connectionUtil.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(query)) {
+            PreparedStatement pstmt = conn.prepareStatement(query)) {
             
             pstmt.setString(1, question);
             pstmt.executeUpdate();
             
         } catch (SQLException e) {
             // Log the error but don't fail the answer check
-            System.err.println("Failed to update answered count: " + e.getMessage());
+            System.err.println("Failed to mark question as answered: " + e.getMessage());
         }
     }
     

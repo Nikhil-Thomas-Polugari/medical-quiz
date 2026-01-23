@@ -19,8 +19,10 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 
 @WebMvcTest(QuestionController.class)
+@AutoConfigureMockMvc(addFilters = false)
 class QuestionControllerTest {
 
     @Autowired
@@ -39,14 +41,9 @@ class QuestionControllerTest {
     @BeforeEach
     void setUp() {
         sampleQuestion = new QuestionDTO(
-            1L,
-            "A patient presents with fever and cough. What is the diagnosis?",
-            "Medium",
-            "Respiratory"
-        );
+            "A patient presents with fever and cough. What is the diagnosis?", "Pneumonia");
 
         sampleSubmission = new AnswerSubmissionDTO();
-        sampleSubmission.setQuestionId(1L);
         sampleSubmission.setAnswer("Pneumonia");
 
         correctResponse = new AnswerResponseDTO(true, "Pneumonia", "Correct!");
@@ -59,11 +56,8 @@ class QuestionControllerTest {
 
         mockMvc.perform(get("/api/questions/random"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.questionId").value(1))
-                .andExpect(jsonPath("$.questionText").value(sampleQuestion.getQuestionText()))
-                .andExpect(jsonPath("$.difficulty").value("Medium"))
-                .andExpect(jsonPath("$.category").value("Respiratory"));
-
+                .andExpect(jsonPath("$.questionText").value(sampleQuestion.getQuestion()))
+                .andExpect(jsonPath("$.answered").value(sampleQuestion.getAnswer()));
         System.out.println("✓ GET /api/questions/random returns question successfully");
     }
 

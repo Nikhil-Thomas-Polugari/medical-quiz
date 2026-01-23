@@ -2,9 +2,12 @@
 # setup.sh - Quick setup script
 
 
-export M2_HOME=c:\Users\thoma\Desktop\apache-maven-3.9.12
+export M2_HOME=c:\Users\thoma\Desktop\apache-maven-3.9.12-src
+echo M2_HOME points to $M2_HOME
 export PATH=$M2_HOME/bin:$PATH
+echo PATH points to $PATH
 export JAVA_HOME=c:\Users\thoma\Desktop\jdk-25.0.1.8-hotspot
+echo JAVA_HOME points to $JAVA_HOME
 
 #echo "Setting up Medical Quiz Flask Frontend..."
 

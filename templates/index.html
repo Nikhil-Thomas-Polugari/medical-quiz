@@ -197,8 +197,8 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        const API_BASE = '{{ api_url }}/questions';
-        
+        const API_BASE = 'http://localhost:8080/api/questions'; // Update with your actual URL
+
         let quizState = {
             answeredQuestions: JSON.parse(localStorage.getItem('answeredQuestions') || '[]'),
             correctAnswers: parseInt(localStorage.getItem('correctAnswers') || '0'),
@@ -206,71 +206,56 @@
             currentQuestion: null
         };
 
-        // Show different pages
-        function showPage(pageId) {
-            ['landing-page', 'dashboard', 'quiz-page', 'result-page'].forEach(id => {
-                document.getElementById(id).style.display = 'none';
-            });
-            document.getElementById(pageId).style.display = 'block';
-        }
-
-        async function showDashboard() {
-            await loadTotalQuestions();
-            updateDashboard();
-            showPage('dashboard');
-        }
-
-        function updateDashboard() {
-            const answered = quizState.answeredQuestions.length;
-            const correct = quizState.correctAnswers;
-            const total = quizState.totalQuestions;
-            const percentage = answered > 0 ? ((correct / answered) * 100).toFixed(1) : 0;
-            const progressPercent = total > 0 ? ((answered / total) * 100).toFixed(1) : 0;
-
-            document.getElementById('correct-count').textContent = correct;
-            document.getElementById('answered-count').textContent = answered;
-            document.getElementById('total-count').textContent = total;
-            document.getElementById('percentage').textContent = percentage + '%';
+        function displayQuestion(question) {
+            document.getElementById('question-text').textContent = question.question; // Changed
+            document.getElementById('difficulty-badge').textContent = 'Times Answered: ' + (question.answered || 0); // Changed
+            document.getElementById('category-badge').textContent = 'Medical Diagnosis'; // Changed
             
-            const progressBar = document.getElementById('progress-bar');
-            progressBar.style.width = progressPercent + '%';
-            progressBar.textContent = `${answered} / ${total} Questions`;
-
-            if (answered >= total && total > 0) {
-                document.getElementById('completion-alert').style.display = 'block';
-            }
+            const input = document.getElementById('answer-input');
+            input.value = '';
+            input.focus();
         }
 
-        async function loadTotalQuestions() {
+        async function submitAnswer(answer) {
             try {
-                const response = await fetch(`${API_BASE}/count`);
-                quizState.totalQuestions = await response.json();
-            } catch (error) {
-                console.error('Error loading total questions:', error);
-                alert('Cannot connect to server. Please make sure the backend is running.');
-            }
-        }
+                const response = await fetch(`${API_BASE}/answer`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        question: quizState.currentQuestion.question, // Changed from questionId
+                        answer: answer
+                    })
+                });
 
-        async function startQuiz() {
-            if (quizState.answeredQuestions.length >= quizState.totalQuestions) {
-                alert('You have completed all questions!');
-                return;
+                const result = await response.json();
+                
+                // Update state - track by question text instead of ID
+                quizState.answeredQuestions.push(quizState.currentQuestion.question); // Changed
+                if (result.correct || result.isCorrect) {
+                    quizState.correctAnswers++;
+                }
+
+                localStorage.setItem('answeredQuestions', JSON.stringify(quizState.answeredQuestions));
+                localStorage.setItem('correctAnswers', quizState.correctAnswers);
+
+                showResult(result);
+            } catch (error) {
+                console.error('Error submitting answer:', error);
+                alert('Error submitting answer. Please try again.');
             }
-            await loadQuestion();
         }
 
         async function loadQuestion() {
             try {
-                // Keep fetching until we get an unanswered question
                 let question;
                 let attempts = 0;
                 do {
                     const response = await fetch(`${API_BASE}/random`);
                     question = await response.json();
                     attempts++;
-                } while (quizState.answeredQuestions.includes(question.questionId) && attempts < 20);
+                } while (quizState.answeredQuestions.includes(question.question) && attempts < 20); // Changed
 
-                if (quizState.answeredQuestions.includes(question.questionId)) {
+                if (quizState.answeredQuestions.includes(question.question)) { // Changed
                     alert('All questions answered!');
                     showDashboard();
                     return;
@@ -284,97 +269,6 @@
                 alert('Error loading question. Please try again.');
             }
         }
-        function displayQuestion(question) {
-            document.getElementById('question-text').textContent = question.questionText;
-            document.getElementById('difficulty-badge').textContent = 
-                'Difficulty: ' + (question.difficulty || 'Medium');
-            document.getElementById('category-badge').textContent = 
-                question.category || 'General';
-            
-            // Clear and focus the input field
-            const input = document.getElementById('answer-input');
-            input.value = '';
-            input.focus();
-        }
-        function submitTextAnswer(event) {
-            event.preventDefault();
-            
-            const answer = document.getElementById('answer-input').value.trim();
-            
-            if (!answer) {
-                alert('Please enter an answer');
-                return;
-            }
-            
-            submitAnswer(answer);
-        }
-        async function submitAnswer(answer) {
-            try {
-                const response = await fetch(`${API_BASE}/answer`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        questionId: quizState.currentQuestion.questionId,
-                        answer: answer
-                    })
-                });
-
-                const result = await response.json();
-                
-                // Update state
-                quizState.answeredQuestions.push(quizState.currentQuestion.questionId);
-                if (result.isCorrect || result.correct) {
-                    quizState.correctAnswers++;
-                }
-
-                // Save to localStorage
-                localStorage.setItem('answeredQuestions', JSON.stringify(quizState.answeredQuestions));
-                localStorage.setItem('correctAnswers', quizState.correctAnswers);
-
-                // Show result
-                showResult(result);
-            } catch (error) {
-                console.error('Error submitting answer:', error);
-                alert('Error submitting answer. Please try again.');
-            }
-        }
-
-        function showResult(result) {
-            const isCorrect = result.isCorrect || result.correct;
-            
-            if (isCorrect) {
-                document.getElementById('result-icon').innerHTML = '✓ <span class="text-success">Correct!</span>';
-                document.getElementById('result-message').textContent = result.message || 'Well done!';
-                document.getElementById('correct-answer-text').textContent = '';
-            } else {
-                document.getElementById('result-icon').innerHTML = '✗ <span class="text-danger">Incorrect</span>';
-                document.getElementById('result-message').textContent = result.message || 'Try again!';
-                document.getElementById('correct-answer-text').innerHTML = 
-                    `The correct answer was: <strong>${result.correctAnswer}</strong>`;
-            }
-
-            showPage('result-page');
-        }
-
-        function nextQuestion() {
-            if (quizState.answeredQuestions.length >= quizState.totalQuestions) {
-                showDashboard();
-            } else {
-                loadQuestion();
-            }
-        }
-
-        function resetQuiz() {
-            if (confirm('Are you sure you want to reset your progress?')) {
-                localStorage.clear();
-                quizState.answeredQuestions = [];
-                quizState.correctAnswers = 0;
-                location.reload();
-            }
-        }
-        window.onload = async () => {
-            await loadTotalQuestions();
-        };
     </script>
 </body>
 </html>
