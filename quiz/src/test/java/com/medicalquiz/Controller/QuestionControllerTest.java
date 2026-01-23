@@ -56,8 +56,8 @@ class QuestionControllerTest {
 
         mockMvc.perform(get("/api/questions/random"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.questionText").value(sampleQuestion.getQuestion()))
-                .andExpect(jsonPath("$.answered").value(sampleQuestion.getAnswer()));
+                .andExpect(jsonPath("$.question").value(sampleQuestion.getQuestion()))
+                .andExpect(jsonPath("$.answer").value(sampleQuestion.getAnswer()));
         System.out.println("✓ GET /api/questions/random returns question successfully");
     }
 

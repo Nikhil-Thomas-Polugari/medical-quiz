@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Functioncall",
+            "request": "launch",
+            "mainClass": "com.medicalquiz.Functioncall",
+            "projectName": "quiz"
+        },
+        {
+            "type": "java",
             "name": "QuizApplication",
             "request": "launch",
             "mainClass": "com.medical_quiz.QuizApplication",

@@ -22,16 +22,16 @@ public class ConnectionUtil {
     @Value("${snowflake.password}")
     private String password;
     
-    @Value("${snowflake.warehouse:COMPUTE_WH}")
+    @Value("${snowflake.warehouse}")
     private String warehouse;
     
     @Value("${snowflake.database}")
     private String database;
     
-    @Value("${snowflake.schema:PUBLIC}")
+    @Value("${snowflake.schema}")
     private String schema;
     
-    @Value("${snowflake.role:}")
+    @Value("${snowflake.role}")
     private String role;
     
     /**

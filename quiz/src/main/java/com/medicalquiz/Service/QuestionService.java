@@ -22,7 +22,7 @@ public class QuestionService {
     private String currentAnswer;
     
     public QuestionDTO getRandomQuestion() {
-        String query = "SELECT QUESTION, ANSWER FROM MEDICAL_QUIZ_QUESTIONS ORDER BY RANDOM() LIMIT 1";
+        String query = "SELECT QUESTION, ANSWER FROM MEDICAL_QUIZ.PUBLIC.MEDICAL_QUIZ_QUESTIONS ORDER BY RANDOM() LIMIT 1";
         
         try (Connection conn = connectionUtil.getConnection();
              Statement stmt = conn.createStatement();
@@ -86,19 +86,21 @@ public class QuestionService {
     }
     
     public long getTotalQuestionCount() {
-        String query = "SELECT COUNT(*) as total FROM MEDICAL_QUIZ_QUESTIONS";
-        
-        try (Connection conn = connectionUtil.getConnection();
+        String query = "SELECT COUNT(*) as total FROM MEDICAL_QUIZ.PUBLIC.MEDICAL_QUIZ_QUESTIONS";
+        try (
+            Connection conn = connectionUtil.getConnection();
              Statement stmt = conn.createStatement();
+        
              ResultSet rs = stmt.executeQuery(query)) {
             
             if (rs.next()) {
                 return rs.getLong("total");
             }
-            return 0;
+            return 0L;
             
         } catch (SQLException e) {
-            throw new QuestionException("It seems that the code can't count questions", e);
+            e.printStackTrace();
+            throw new QuestionException("Exception error: " + e.getMessage(), e);
         }
     }
     
@@ -120,7 +122,7 @@ public class QuestionService {
      * Mark the question as answered (set ANSWERED to 1)
      */
     private void markAsAnswered(String question) {
-        String query = "UPDATE MEDICAL_QUIZ_QUESTIONS SET ANSWERED = 1 WHERE QUESTION = ? AND ANSWERED = 0";
+        String query = "UPDATE MEDICAL_QUIZ.PUBLIC.MEDICAL_QUIZ_QUESTIONS SET ANSWERED = 1 WHERE QUESTION = ? AND ANSWERED = 0";
         
         try (Connection conn = connectionUtil.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(query)) {

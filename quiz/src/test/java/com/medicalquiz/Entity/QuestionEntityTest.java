@@ -14,12 +14,12 @@ class QuestionEntityTest {
         Question question = new Question(
             "A patient presents with fever and cough. What is the diagnosis?",
             "Common Cold",
-            0
+            Integer.valueOf(0)
         );
         
         assertEquals("A patient presents with fever and cough. What is the diagnosis?", question.getQuestion());
         assertEquals("Common Cold", question.getAnswer());
-        assertEquals(0, question.getAnswered());
+        assertEquals(Integer.valueOf(0), question.getAnswered());
 
         System.out.println("✓ Question all-args constructor works");
     }
@@ -27,7 +27,7 @@ class QuestionEntityTest {
     @Test
     @DisplayName("Test Question entity with no args constructor")
     void testNoArgsConstructor() {
-        Question question = new Question("Test question", "Test answer", 5);
+        Question question = new Question();
 
         assertNull(question.getQuestion());
         assertNull(question.getAnswer());
@@ -72,7 +72,7 @@ class QuestionEntityTest {
     void testEquals() {
         Question q1 = new Question("Q", "A", 1);
         Question q2 = new Question("Q", "A", 1);
-        Question q3 = new Question("Q", "A", 1);
+        Question q3 = new Question("QUESTION", "A", 1);
 
         assertEquals(q1, q2, "Same questions should be equal");
         assertNotEquals(q1, q3, "Different questions should not be equal");
