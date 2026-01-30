@@ -6,12 +6,12 @@ import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
+import jakarta.servlet.http.HttpServletRequest;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Base64;
@@ -23,70 +23,112 @@ import java.util.Map;
 @CrossOrigin(origins = "*")
 public class QRCodeController {
 
-    @Value("${app.frontend.url:http://localhost:5000}")
-    private String frontendUrl;
+    @Value("${server.port:8080}")
+    private String serverPort;
 
     /**
-     * Generate QR code as base64 image
+     * Generate QR code containing the quiz URL
      */
     @GetMapping("/generate")
-    public ResponseEntity<Map<String, String>> generateQRCode() {
+    public ResponseEntity<Map<String, String>> generateQRCode(HttpServletRequest request) {
         try {
-            String base64Image = generateQRCodeImage(frontendUrl, 300, 300);
-            
+            // Build the quiz URL - points to /quiz route
+            String baseUrl = getBaseUrl(request);
+            String quizUrl = baseUrl + "/quiz";
+
+            // Generate QR code
+            String base64Image = generateQRCodeImage(quizUrl, 300, 300);
+
             Map<String, String> response = new HashMap<>();
-            response.put("qrImage", base64Image);
-            response.put("quizUrl", frontendUrl);
             response.put("success", "true");
-            
+            response.put("qrImage", base64Image);
+            response.put("quizUrl", quizUrl);
+            response.put("message", "QR Code generated successfully");
+
             return ResponseEntity.ok(response);
+
         } catch (Exception e) {
-            Map<String, String> error = new HashMap<>();
-            error.put("success", "false");
-            error.put("error", e.getMessage());
-            return ResponseEntity.internalServerError().body(error);
+            Map<String, String> errorResponse = new HashMap<>();
+            errorResponse.put("success", "false");
+            errorResponse.put("error", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
         }
     }
 
     /**
-     * Generate QR code as PNG image (direct download)
+     * Get QR code as PNG image (for direct download)
      */
     @GetMapping(value = "/image", produces = MediaType.IMAGE_PNG_VALUE)
-    public ResponseEntity<byte[]> generateQRCodeImage() {
+    public ResponseEntity<byte[]> getQRCodeImage(HttpServletRequest request) {
         try {
-            QRCodeWriter qrCodeWriter = new QRCodeWriter();
-            BitMatrix bitMatrix = qrCodeWriter.encode(
-                frontendUrl, 
-                BarcodeFormat.QR_CODE, 
-                300, 
-                300
-            );
+            String baseUrl = getBaseUrl(request);
+            String quizUrl = baseUrl + "/quiz";
 
-            BufferedImage bufferedImage = MatrixToImageWriter.toBufferedImage(bitMatrix);
-            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            ImageIO.write(bufferedImage, "PNG", outputStream);
-            
+            byte[] qrCode = generateQRCodeBytes(quizUrl, 400, 400);
+
             return ResponseEntity.ok()
-                .contentType(MediaType.IMAGE_PNG)
-                .body(outputStream.toByteArray());
+                    .contentType(MediaType.IMAGE_PNG)
+                    .body(qrCode);
+
         } catch (Exception e) {
-            return ResponseEntity.internalServerError().build();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
     /**
-     * Helper method to generate QR code as base64 string
+     * Get quiz statistics (for QR code page)
+     */
+    @GetMapping("/stats")
+    public ResponseEntity<Map<String, Object>> getQuizStats() {
+        Map<String, Object> stats = new HashMap<>();
+        stats.put("totalQuestions", "500+");
+        stats.put("categories", "15+");
+        stats.put("difficulty", "Easy to Hard");
+        stats.put("quizType", "Medical Diagnosis");
+
+        return ResponseEntity.ok(stats);
+    }
+
+    /**
+     * Generate QR code and return as Base64 string
      */
     private String generateQRCodeImage(String text, int width, int height) 
+            throws WriterException, IOException {
+        byte[] qrCode = generateQRCodeBytes(text, width, height);
+        return Base64.getEncoder().encodeToString(qrCode);
+    }
+
+    /**
+     * Generate QR code as byte array
+     */
+    private byte[] generateQRCodeBytes(String text, int width, int height) 
             throws WriterException, IOException {
         QRCodeWriter qrCodeWriter = new QRCodeWriter();
         BitMatrix bitMatrix = qrCodeWriter.encode(text, BarcodeFormat.QR_CODE, width, height);
 
-        BufferedImage bufferedImage = MatrixToImageWriter.toBufferedImage(bitMatrix);
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        ImageIO.write(bufferedImage, "PNG", outputStream);
+        MatrixToImageWriter.writeToStream(bitMatrix, "PNG", outputStream);
+        return outputStream.toByteArray();
+    }
+
+    /**
+     * Get base URL from request
+     */
+    private String getBaseUrl(HttpServletRequest request) {
+        String scheme = request.getScheme();
+        String serverName = request.getServerName();
+        int port = request.getServerPort();
+        String contextPath = request.getContextPath();
+
+        String baseUrl = scheme + "://" + serverName;
         
-        byte[] imageBytes = outputStream.toByteArray();
-        return Base64.getEncoder().encodeToString(imageBytes);
+        // Only add port if it's not the default for the scheme
+        if ((scheme.equals("http") && port != 80) || (scheme.equals("https") && port != 443)) {
+            baseUrl += ":" + port;
+        }
+        
+        baseUrl += contextPath;
+        
+        return baseUrl;
     }
 }

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Medical Quiz</title>
+    <title>Medical Quiz - Dynamic</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -38,13 +38,25 @@
             border-color: #764ba2;
             box-shadow: 0 0 0 0.2rem rgba(118, 75, 162, 0.25);
         }
+        .quiz-title {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+        .times-answered-badge {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
+            <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light navbar-custom mb-4">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="/">🏥 Medical Quiz</a>
+            <a class="navbar-brand fw-bold quiz-title" href="/">🏥 Medical Quiz</a>
             <div class="ms-auto">
                 <button class="btn btn-outline-danger" onclick="resetQuiz()">Reset Quiz</button>
             </div>
@@ -139,15 +151,19 @@
             </div>
         </div>
 
-        <!-- Quiz Page - TEXT INPUT VERSION -->
+        <!-- Quiz Page -->
         <div id="quiz-page" class="row justify-content-center mt-4" style="display: none;">
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-body p-5">
-                        <!-- Badges for category and difficulty -->
-                        <div class="mb-3">
-                            <span class="badge bg-primary" id="category-badge"></span>
-                            <span class="badge bg-secondary" id="difficulty-badge"></span>
+                        <!-- Dynamic title based on question -->
+                        <h2 class="quiz-title mb-3" id="dynamic-title">Medical Diagnosis Quiz</h2>
+                        
+                        <!-- Times answered badge -->
+                        <div class="mb-4">
+                            <span class="times-answered-badge" id="times-answered">
+                                📊 Answered <span id="answered-count-badge">0</span> times
+                            </span>
                         </div>
                         
                         <h4 class="mb-4">Question</h4>
@@ -177,12 +193,13 @@
             </div>
         </div>
 
-        <!-- Result Page -->
+        <!-- Result Page - Dynamic -->
         <div id="result-page" class="row justify-content-center mt-5" style="display: none;">
             <div class="col-md-6 text-center">
-                <div class="card">
+                <div class="card" id="result-card">
                     <div class="card-body p-5">
                         <h1 id="result-icon" class="mb-4"></h1>
+                        <h3 id="result-title" class="mb-3"></h3>
                         <p class="lead" id="result-message"></p>
                         <p id="correct-answer-text"></p>
                         
@@ -197,8 +214,8 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        const API_BASE = 'http://localhost:8080/api/questions'; // Update with your actual URL
-
+        const API_BASE = window.location.origin + '/api/questions';
+        
         let quizState = {
             answeredQuestions: JSON.parse(localStorage.getItem('answeredQuestions') || '[]'),
             correctAnswers: parseInt(localStorage.getItem('correctAnswers') || '0'),
@@ -206,59 +223,77 @@
             currentQuestion: null
         };
 
-        function displayQuestion(question) {
-            document.getElementById('question-text').textContent = question.question; // Changed
-            document.getElementById('difficulty-badge').textContent = 'Times Answered: ' + (question.answered || 0); // Changed
-            document.getElementById('category-badge').textContent = 'Medical Diagnosis'; // Changed
-            
-            const input = document.getElementById('answer-input');
-            input.value = '';
-            input.focus();
+        // Show different pages
+        function showPage(pageId) {
+            ['landing-page', 'dashboard', 'quiz-page', 'result-page'].forEach(id => {
+                document.getElementById(id).style.display = 'none';
+            });
+            document.getElementById(pageId).style.display = 'block';
         }
 
-        async function submitAnswer(answer) {
-            try {
-                const response = await fetch(`${API_BASE}/answer`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        question: quizState.currentQuestion.question, // Changed from questionId
-                        answer: answer
-                    })
-                });
+        async function showDashboard() {
+            await loadTotalQuestions();
+            updateDashboard();
+            showPage('dashboard');
+        }
 
-                const result = await response.json();
-                
-                // Update state - track by question text instead of ID
-                quizState.answeredQuestions.push(quizState.currentQuestion.question); // Changed
-                if (result.correct || result.isCorrect) {
-                    quizState.correctAnswers++;
-                }
+        function updateDashboard() {
+            const answered = quizState.answeredQuestions.length;
+            const correct = quizState.correctAnswers;
+            const total = quizState.totalQuestions;
+            const percentage = answered > 0 ? ((correct / answered) * 100).toFixed(1) : 0;
+            const progressPercent = total > 0 ? ((answered / total) * 100).toFixed(1) : 0;
 
-                localStorage.setItem('answeredQuestions', JSON.stringify(quizState.answeredQuestions));
-                localStorage.setItem('correctAnswers', quizState.correctAnswers);
+            document.getElementById('correct-count').textContent = correct;
+            document.getElementById('answered-count').textContent = answered;
+            document.getElementById('total-count').textContent = total;
+            document.getElementById('percentage').textContent = percentage + '%';
+            
+            const progressBar = document.getElementById('progress-bar');
+            progressBar.style.width = progressPercent + '%';
+            progressBar.textContent = `${answered} / ${total} Questions`;
 
-                showResult(result);
-            } catch (error) {
-                console.error('Error submitting answer:', error);
-                alert('Error submitting answer. Please try again.');
+            if (answered >= total && total > 0) {
+                document.getElementById('completion-alert').style.display = 'block';
             }
+        }
+
+        async function loadTotalQuestions() {
+            try {
+                const response = await fetch(`${API_BASE}/count`);
+                
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error || 'Failed to load question count');
+                }
+                
+                const count = await response.json();
+                quizState.totalQuestions = count;
+            } catch (error) {
+                console.error('Error loading total questions:', error);
+                // Don't show alert - just log the error
+                // Set a default value
+                quizState.totalQuestions = 0;
+            }
+        }
+
+        async function startQuiz() {
+            if (quizState.answeredQuestions.length >= quizState.totalQuestions) {
+                alert('You have completed all questions!');
+                return;
+            }
+            await loadQuestion();
         }
 
         async function loadQuestion() {
             try {
-                let question;
-                let attempts = 0;
-                do {
-                    const response = await fetch(`${API_BASE}/random`);
-                    question = await response.json();
-                    attempts++;
-                } while (quizState.answeredQuestions.includes(question.question) && attempts < 20); // Changed
+                const response = await fetch(`${API_BASE}/random`);
+                const question = await response.json();
 
-                if (quizState.answeredQuestions.includes(question.question)) { // Changed
-                    alert('All questions answered!');
-                    showDashboard();
-                    return;
+                // Check if already answered
+                if (quizState.answeredQuestions.includes(question.question)) {
+                    // Try getting another question
+                    return loadQuestion();
                 }
 
                 quizState.currentQuestion = question;
@@ -269,6 +304,122 @@
                 alert('Error loading question. Please try again.');
             }
         }
+
+        function displayQuestion(question) {
+            // Update dynamic title
+            document.getElementById('dynamic-title').textContent = 
+                '🏥 Medical Diagnosis Quiz';
+            
+            // Update times answered badge
+            document.getElementById('answered-count-badge').textContent = 
+                question.answered || 0;
+            
+            // Display question
+            document.getElementById('question-text').textContent = question.question;
+            
+            // Clear and focus the input field
+            const input = document.getElementById('answer-input');
+            input.value = '';
+            input.focus();
+        }
+
+        function submitTextAnswer(event) {
+            event.preventDefault();
+            
+            const answer = document.getElementById('answer-input').value.trim();
+            
+            if (!answer) {
+                alert('Please enter an answer');
+                return;
+            }
+            
+            submitAnswer(answer);
+        }
+
+        async function submitAnswer(answer) {
+            try {
+                const response = await fetch(`${API_BASE}/answer`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        question: quizState.currentQuestion.question,
+                        answer: answer
+                    })
+                });
+
+                const result = await response.json();
+                
+                // Update state
+                quizState.answeredQuestions.push(quizState.currentQuestion.question);
+                if (result.correct || result.isCorrect) {
+                    quizState.correctAnswers++;
+                }
+
+                // Save to localStorage
+                localStorage.setItem('answeredQuestions', JSON.stringify(quizState.answeredQuestions));
+                localStorage.setItem('correctAnswers', quizState.correctAnswers);
+
+                // Show result with dynamic content
+                showResult(result);
+            } catch (error) {
+                console.error('Error submitting answer:', error);
+                alert('Error submitting answer. Please try again.');
+            }
+        }
+
+        function showResult(result) {
+            const isCorrect = result.isCorrect || result.correct;
+            const resultCard = document.getElementById('result-card');
+            
+            if (isCorrect) {
+                // Dynamic success styling
+                resultCard.style.borderLeft = '5px solid #28a745';
+                document.getElementById('result-icon').innerHTML = '✅';
+                document.getElementById('result-title').innerHTML = 
+                    '<span class="text-success">Correct Answer!</span>';
+                document.getElementById('result-message').textContent = 
+                    result.message || 'Well done! You got it right!';
+                document.getElementById('correct-answer-text').innerHTML = 
+                    `<div class="alert alert-success mt-3">
+                        <strong>Your answer:</strong> ${result.correctAnswer}
+                    </div>`;
+            } else {
+                // Dynamic error styling
+                resultCard.style.borderLeft = '5px solid #dc3545';
+                document.getElementById('result-icon').innerHTML = '❌';
+                document.getElementById('result-title').innerHTML = 
+                    '<span class="text-danger">Incorrect Answer</span>';
+                document.getElementById('result-message').textContent = 
+                    result.message || 'Not quite right. Keep trying!';
+                document.getElementById('correct-answer-text').innerHTML = 
+                    `<div class="alert alert-warning mt-3">
+                        <strong>Correct answer:</strong> ${result.correctAnswer}
+                    </div>`;
+            }
+
+            showPage('result-page');
+        }
+
+        function nextQuestion() {
+            if (quizState.answeredQuestions.length >= quizState.totalQuestions) {
+                showDashboard();
+            } else {
+                loadQuestion();
+            }
+        }
+
+        function resetQuiz() {
+            if (confirm('Are you sure you want to reset your progress?')) {
+                localStorage.clear();
+                quizState.answeredQuestions = [];
+                quizState.correctAnswers = 0;
+                location.reload();
+            }
+        }
+
+        window.onload = async () => {
+            await loadTotalQuestions();
+        };
     </script>
 </body>
 </html>

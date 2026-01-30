@@ -62,7 +62,7 @@ public class GlobalExceptionHandler {
         Map<String, Object> response = new HashMap<>();
         response.put("success", false);
         response.put("message", "Something, Somewhere went wrong!");
-        response.put("error", "UNKNOWN_ERROR");
+        response.put("error", ex.getMessage());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
     }
 }

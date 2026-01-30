@@ -1,6 +1,7 @@
 package com.medicalquiz.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,10 +16,14 @@ import com.medicalquiz.DTO.QuestionDTO;
 import com.medicalquiz.Service.QuestionService;
 import jakarta.validation.Valid;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api/questions")
 @CrossOrigin(origins = "*")
 public class QuestionController {
+    
     @Autowired
     private QuestionService questionService;
     
@@ -27,8 +32,11 @@ public class QuestionController {
         try {
             QuestionDTO question = questionService.getRandomQuestion();
             return ResponseEntity.ok(question);
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            Map<String, String> error = new HashMap<>();
+            error.put("error", e.getMessage());
+            error.put("status", "error");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
         }
     }
     
@@ -37,8 +45,11 @@ public class QuestionController {
         try {
             AnswerResponseDTO response = questionService.checkAnswer(submission);
             return ResponseEntity.ok(response);
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            Map<String, String> error = new HashMap<>();
+            error.put("error", e.getMessage());
+            error.put("status", "error");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
         }
     }
     
@@ -47,8 +58,19 @@ public class QuestionController {
         try {
             long count = questionService.getTotalQuestionCount();
             return ResponseEntity.ok(count);
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            Map<String, String> error = new HashMap<>();
+            error.put("error", "Failed to get question count: " + e.getMessage());
+            error.put("status", "error");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
         }
+    }
+    
+    @GetMapping("/health")
+    public ResponseEntity<Map<String, String>> healthCheck() {
+        Map<String, String> health = new HashMap<>();
+        health.put("status", "UP");
+        health.put("message", "Question API is running");
+        return ResponseEntity.ok(health);
     }
 }
